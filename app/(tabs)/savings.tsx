@@ -1,3 +1,1 @@
-export default function P() {
-  return null;
-}
+export { SavingsScreen as default } from '@/features/savings/screens/SavingsScreen';
