@@ -4,11 +4,7 @@ import { AppText } from './AppText';
 
 export function Legend({ items }: { items: { color: string; label: string; dashed?: boolean }[] }) {
   return (
-    <View
-      style={styles.row}
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-    >
+    <View style={styles.row}>
       {items.map(i => (
         <View key={i.label} style={styles.item}>
           <View

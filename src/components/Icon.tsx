@@ -61,12 +61,7 @@ export function Icon({
     strokeLinejoin: 'round' as const,
   };
   return (
-    <View
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-      aria-hidden
-      style={{ width: size, height: size }}
-    >
+    <View aria-hidden style={{ width: size, height: size }}>
       <Svg width={size} height={size} viewBox="0 0 24 24">
         {name === 'gear' || name === 'target' ? (
           <Circle cx={12} cy={12} r={name === 'gear' ? 3 : 9} {...common} />

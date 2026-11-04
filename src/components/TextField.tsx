@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
+import { Platform, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 import { fontFamily, radius, space, TOUCH_TARGET, typography, useColors } from '@/theme';
 import { AppText } from './AppText';
 
@@ -86,5 +86,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
     paddingVertical: space.sm,
     minHeight: TOUCH_TARGET,
+    // The surrounding box already shows the focus ring.
+    ...(Platform.OS === 'web' ? { outlineWidth: 0 } : null),
   },
 });

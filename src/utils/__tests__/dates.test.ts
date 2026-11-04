@@ -8,6 +8,7 @@ import {
   ofMonth,
   parseDayInput,
   parseMonthInput,
+  dayLongLabel,
   dayToInput,
   monthToInput,
   todayOf,
@@ -59,5 +60,7 @@ describe('dates', () => {
     expect(dayToInput('2026-10-22')).toBe('22/10/2026');
     expect(monthToInput('2026-10')).toBe('10/2026');
     expect(dayToInput(null)).toBe('');
+    expect(dayLongLabel('2026-08-01')).toBe('1er août 2026');
+    expect(dayLongLabel('2026-10-22')).toBe('22 octobre 2026');
   });
 });

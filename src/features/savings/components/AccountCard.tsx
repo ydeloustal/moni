@@ -43,7 +43,11 @@ export function AccountCard({ account, today }: { account: SavingsAccount; today
   return (
     <Card
       title={title}
-      subtitle={[PRODUCT_LABELS[account.product], account.bank].filter(Boolean).join(' · ')}
+      subtitle={
+        [account.name ? PRODUCT_LABELS[account.product] : null, account.bank]
+          .filter(Boolean)
+          .join(' · ') || undefined
+      }
       right={
         <Button
           small

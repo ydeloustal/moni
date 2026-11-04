@@ -37,8 +37,7 @@ export function Toggle({
         onValueChange={onChange}
         trackColor={{ true: c.good, false: c.lineStrong }}
         thumbColor={c.surface}
-        accessibilityElementsHidden
-        importantForAccessibility="no"
+        aria-hidden
       />
     </Pressable>
   );

@@ -88,8 +88,9 @@ export const ofMonth = (m: Month): string =>
   (/^[aeio]/.test(monthName(m)) ? "d'" : 'de ') + monthName(m);
 
 export const dayLabel = (d: Day): string => `${dayOfMonth(d)} ${monthShort(monthOf(d))}`;
+/** « 1er août 2026 », « 22 octobre 2026 ». */
 export const dayLongLabel = (d: Day): string =>
-  `${dayOfMonth(d)} ${monthName(monthOf(d))} ${d.slice(0, 4)}`;
+  `${dayOfMonth(d) === 1 ? '1er' : dayOfMonth(d)} ${monthName(monthOf(d))} ${d.slice(0, 4)}`;
 
 /* ---------- French text input: "22/10/2026" ↔ "2026-10-22", "10/2026" ↔ "2026-10" ---------- */
 

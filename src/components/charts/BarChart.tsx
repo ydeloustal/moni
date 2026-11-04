@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Svg, { G, Line, Path, Rect, Text as SvgText } from 'react-native-svg';
 import { useColors } from '@/theme';
 import { axisLabel, niceStep, roundedTop } from './scale';
@@ -20,7 +20,9 @@ export function BarChart({
   selected,
   onSelect,
   description,
+  selectLabel = label => `Afficher le détail : ${label}`,
 }: {
+  selectLabel?: (label: string) => string;
   labels: string[];
   series: BarSeries[];
   height?: number;
@@ -46,94 +48,103 @@ export function BarChart({
   for (let v = 0; v <= ceiling; v += step) grid.push(v);
 
   return (
-    <View
-      onLayout={onLayout}
-      accessible
-      accessibilityRole="image"
-      accessibilityLabel={description}
-      style={{ height }}
-    >
-      {width > 0 ? (
-        <Svg width={width} height={height}>
-          {grid.map(v => (
-            <Line
-              key={`g${v}`}
-              x1={left}
-              x2={width - right}
-              y1={y(v)}
-              y2={y(v)}
-              stroke={v === 0 ? c.lineStrong : c.line}
-              strokeWidth={1}
-            />
-          ))}
-          {grid.map(v => (
-            <SvgText
-              key={`t${v}`}
-              x={left - 6}
-              y={y(v) + 4}
-              fontSize={11}
-              fill={c.muted}
-              textAnchor="end"
-            >
-              {axisLabel(v)}
-            </SvgText>
-          ))}
-          {labels.map((label, i) => {
-            const center = left + i * groupW + groupW / 2;
-            const total = barW * series.length + 2 * (series.length - 1);
-            return (
-              <G key={label + i}>
-                {selected === i ? (
-                  <Rect
-                    x={center - groupW / 2 + 1}
-                    y={top - 4}
-                    width={groupW - 2}
-                    height={innerH + 4}
-                    rx={6}
-                    fill={c.chip}
-                  />
-                ) : null}
-                {series.map((s, k) => {
-                  const v = s.values[i] ?? 0;
-                  return (
-                    <Path
-                      key={k}
-                      d={roundedTop(
-                        center - total / 2 + k * (barW + 2),
-                        y(v),
-                        barW,
-                        top + innerH - y(v),
-                        4,
-                      )}
-                      fill={s.color}
+    <View onLayout={onLayout} style={{ height }}>
+      <View
+        accessible
+        accessibilityRole="image"
+        accessibilityLabel={description}
+        style={StyleSheet.absoluteFill}
+      >
+        {width > 0 ? (
+          <Svg width={width} height={height}>
+            {grid.map(v => (
+              <Line
+                key={`g${v}`}
+                x1={left}
+                x2={width - right}
+                y1={y(v)}
+                y2={y(v)}
+                stroke={v === 0 ? c.lineStrong : c.line}
+                strokeWidth={1}
+              />
+            ))}
+            {grid.map(v => (
+              <SvgText
+                key={`t${v}`}
+                x={left - 6}
+                y={y(v) + 4}
+                fontSize={11}
+                fill={c.muted}
+                textAnchor="end"
+              >
+                {axisLabel(v)}
+              </SvgText>
+            ))}
+            {labels.map((label, i) => {
+              const center = left + i * groupW + groupW / 2;
+              const total = barW * series.length + 2 * (series.length - 1);
+              return (
+                <G key={label + i}>
+                  {selected === i ? (
+                    <Rect
+                      x={center - groupW / 2 + 1}
+                      y={top - 4}
+                      width={groupW - 2}
+                      height={innerH + 4}
+                      rx={6}
+                      fill={c.chip}
                     />
-                  );
-                })}
-                <SvgText
-                  x={center}
-                  y={height - 6}
-                  fontSize={11}
-                  fill={selected === i ? c.ink : c.muted}
-                  fontWeight={selected === i ? '700' : '400'}
-                  textAnchor="middle"
-                >
-                  {label}
-                </SvgText>
-                {onSelect ? (
-                  <Rect
-                    x={center - groupW / 2}
-                    y={0}
-                    width={groupW}
-                    height={height}
-                    fill="transparent"
-                    onPress={() => onSelect(i)}
-                  />
-                ) : null}
-              </G>
-            );
-          })}
-        </Svg>
-      ) : null}
+                  ) : null}
+                  {series.map((s, k) => {
+                    const v = s.values[i] ?? 0;
+                    return (
+                      <Path
+                        key={k}
+                        d={roundedTop(
+                          center - total / 2 + k * (barW + 2),
+                          y(v),
+                          barW,
+                          top + innerH - y(v),
+                          4,
+                        )}
+                        fill={s.color}
+                      />
+                    );
+                  })}
+                  <SvgText
+                    x={center}
+                    y={height - 6}
+                    fontSize={11}
+                    fill={selected === i ? c.ink : c.muted}
+                    fontWeight={selected === i ? '700' : '400'}
+                    textAnchor="middle"
+                  >
+                    {label}
+                  </SvgText>
+                </G>
+              );
+            })}
+          </Svg>
+        ) : null}
+      </View>
+      {onSelect && width > 0
+        ? labels.map((label, i) => (
+            <Pressable
+              key={`p${label}${i}`}
+              onPress={() => onSelect(i)}
+              accessibilityRole="button"
+              accessibilityLabel={selectLabel(label)}
+              accessibilityState={{ selected: selected === i }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: left + i * groupW,
+                width: groupW,
+              }}
+            />
+          ))
+        : null}
     </View>
   );
 }
