@@ -3,6 +3,7 @@ export {
   breakpoints,
   fontFamily,
   MAX_CONTENT_WIDTH,
+  SIDE_NAVIGATION_WIDTH,
   radius,
   space,
   TOUCH_TARGET,

@@ -8,7 +8,8 @@ export const radius = { sm: 8, md: 12, lg: 18, pill: 999 } as const;
 export const TOUCH_TARGET = Platform.OS === 'android' ? 48 : 44;
 
 /** Responsive breakpoints (logical pixels). */
-export const breakpoints = { medium: 600, expanded: 1024 } as const;
+export const breakpoints = { medium: 600, expanded: 1024, sideNavigation: 1200 } as const;
+export const SIDE_NAVIGATION_WIDTH = 220;
 export const MAX_CONTENT_WIDTH = 1120;
 
 /** System fonts only: nothing is downloaded. */

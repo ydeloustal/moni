@@ -1,4 +1,5 @@
 /** Stroke icons drawn in SVG: no icon font, nothing downloaded. Decorative: hidden from screen readers. */
+import { View } from 'react-native';
 import Svg, { Circle, Path, Rect } from 'react-native-svg';
 
 const PATHS = {
@@ -60,30 +61,30 @@ export function Icon({
     strokeLinejoin: 'round' as const,
   };
   return (
-    <Svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
+    <View
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
       aria-hidden
+      style={{ width: size, height: size }}
     >
-      {name === 'gear' || name === 'target' ? (
-        <Circle cx={12} cy={12} r={name === 'gear' ? 3 : 9} {...common} />
-      ) : null}
-      {name === 'target' ? <Circle cx={12} cy={12} r={4.5} {...common} /> : null}
-      {name === 'info' ? <Circle cx={12} cy={12} r={9} {...common} /> : null}
-      {name === 'copy' ? <Rect x={9} y={9} width={11} height={11} rx={2} {...common} /> : null}
-      {name === 'lock' ? <Rect x={4} y={11} width={16} height={10} rx={2} {...common} /> : null}
-      {name === 'scissors' ? (
-        <>
-          <Circle cx={6} cy={6} r={3} {...common} />
-          <Circle cx={6} cy={18} r={3} {...common} />
-        </>
-      ) : null}
-      {PATHS[name].map(d => (
-        <Path key={d} d={d} {...common} />
-      ))}
-    </Svg>
+      <Svg width={size} height={size} viewBox="0 0 24 24">
+        {name === 'gear' || name === 'target' ? (
+          <Circle cx={12} cy={12} r={name === 'gear' ? 3 : 9} {...common} />
+        ) : null}
+        {name === 'target' ? <Circle cx={12} cy={12} r={4.5} {...common} /> : null}
+        {name === 'info' ? <Circle cx={12} cy={12} r={9} {...common} /> : null}
+        {name === 'copy' ? <Rect x={9} y={9} width={11} height={11} rx={2} {...common} /> : null}
+        {name === 'lock' ? <Rect x={4} y={11} width={16} height={10} rx={2} {...common} /> : null}
+        {name === 'scissors' ? (
+          <>
+            <Circle cx={6} cy={6} r={3} {...common} />
+            <Circle cx={6} cy={18} r={3} {...common} />
+          </>
+        ) : null}
+        {PATHS[name].map(d => (
+          <Path key={d} d={d} {...common} />
+        ))}
+      </Svg>
+    </View>
   );
 }

@@ -39,5 +39,5 @@ export function Stat({
 }
 
 const styles = StyleSheet.create({
-  box: { flexGrow: 1, flexBasis: 140, padding: space.md, borderRadius: radius.md, gap: 2 },
+  box: { flexGrow: 1, flexBasis: 120, padding: space.md, borderRadius: radius.md, gap: 2 },
 });

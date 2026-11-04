@@ -100,7 +100,7 @@ export function OperationsScreen() {
   return (
     <Screen>
       <MonthSwitcher month={month} onChange={setMonth} />
-      <Row style={{ flexWrap: 'wrap', gap: space.md }}>
+      <Row style={{ flexWrap: 'wrap', gap: space.md, alignItems: 'stretch' }}>
         <Stat label="Revenus" value={formatMoney(totals.inc)} tone="good" />
         <Stat label="Dépenses" value={formatMoney(totals.exp)} />
         <Stat

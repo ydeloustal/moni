@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router/js-tabs';
 import { View } from 'react-native';
 import { Icon, IconButton, UndoSnackbar, type IconName } from '@/components';
 import { useLayout } from '@/hooks/useLayout';
-import { useColors } from '@/theme';
+import { SIDE_NAVIGATION_WIDTH, useColors } from '@/theme';
 
 const TABS: { name: string; title: string; icon: IconName; add: boolean }[] = [
   { name: 'index', title: 'Accueil', icon: 'home', add: true },
@@ -15,8 +15,7 @@ const TABS: { name: string; title: string; icon: IconName; add: boolean }[] = [
 
 export default function TabsLayout() {
   const c = useColors();
-  const { size } = useLayout();
-  const side = size === 'expanded';
+  const { sideNavigation: side } = useLayout();
   return (
     <View style={{ flex: 1 }}>
       <Tabs
@@ -31,8 +30,10 @@ export default function TabsLayout() {
             backgroundColor: c.surface,
             borderTopColor: c.line,
             borderRightColor: c.line,
+            ...(side ? { width: SIDE_NAVIGATION_WIDTH, paddingTop: 8 } : {}),
           },
           tabBarActiveTintColor: c.ink,
+          tabBarActiveBackgroundColor: c.chip,
           tabBarInactiveTintColor: c.muted,
           tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
           sceneStyle: { backgroundColor: c.bg },
