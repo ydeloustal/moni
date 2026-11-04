@@ -25,7 +25,7 @@ Run lint and typecheck before declaring any task done.
 
 ## Navigation & Routing
 
-- Use **Expo Router** for all navigation. Routes live in `src/app/` — every file there is a screen, `_layout.tsx` files define navigators. Keep non-route code (components, hooks, utils) outside `src/app/`.
+- Use **Expo Router** for all navigation. Routes live in `app/` (project root) — every file there is a screen, `_layout.tsx` files define navigators. Keep non-route code in `src/` (components, features, services, hooks, theme, types, utils).
 - Import `Link`, `router`, and `useLocalSearchParams` from `expo-router`.
 - Docs: https://docs.expo.dev/router/introduction.md
 
@@ -39,3 +39,9 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+
+## Project constraints
+
+- 100% offline: no network calls at runtime (no fetch, XHR, WebSocket), no remote fonts/images, no analytics, no OTA updates. ESLint enforces part of this.
+- All money values are integer cents. Business logic in `src/features/*/domain` is pure (no React, no clock, no storage).
+- All persistence goes through the `BudgetRepository` interface in `src/services/storage`.
