@@ -9,10 +9,12 @@ import { ConfirmProvider, LoadingState } from '@/components';
 import { StartupError } from '@/features/app/StartupError';
 import { useStoreSnapshot } from '@/hooks/useBudget';
 import { cleanupExports } from '@/services/files/files';
+import { registerServiceWorker } from '@/services/pwa/registerServiceWorker';
 import { budgetStore } from '@/services/store/instance';
 import { ThemeProvider, useTheme } from '@/theme';
 
 void SplashScreen.preventAutoHideAsync().catch(() => undefined);
+registerServiceWorker();
 
 const MODALS = ['operation', 'balance', 'category', 'account', 'goal', 'backup'] as const;
 const PAGES: Record<string, string> = {
