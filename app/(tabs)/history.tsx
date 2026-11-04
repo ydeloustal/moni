@@ -1,3 +1,1 @@
-export default function P() {
-  return null;
-}
+export { HistoryScreen as default } from '@/features/history/screens/HistoryScreen';
