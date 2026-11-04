@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "updatedAt": "2026-10-22",
+  "nextRevision": "2027-02-01",
+  "notice": "Taux nominaux annuels bruts des produits d'épargne réglementée en France. Chaque taux indique sa source et son niveau de preuve : 'officielle' (Journal officiel, ministère, service-public.fr) ou 'secondaire' (presse spécialisée concordante, à confirmer). Données publiées sous Licence Ouverte 2.0 (Etalab).",
+  "sources": {
+    "jo-2026-08": {
+      "title": "Arrêté du 28 juillet 2026 relatif aux taux d'intérêt de certains produits d'épargne réglementée (JORF n°0175 du 29 juillet 2026)",
+      "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054541376",
+      "evidence": "officielle"
+    },
+    "jo-2026-08-lep": {
+      "title": "Arrêté du 29 juillet 2026 relatif au taux d'intérêt du livret d'épargne populaire",
+      "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054569438",
+      "evidence": "officielle"
+    },
+    "minefi-2026-02": {
+      "title": "Ministère de l'Économie : nouveaux taux du livret A et du LEP au 1er février 2026",
+      "url": "https://www.economie.gouv.fr/actualites/epargne-reglementee-de-nouveaux-taux-pour-le-livret-et-le-lep-au-1er-fevrier-2026",
+      "evidence": "officielle"
+    },
+    "sp-livret-a": {
+      "title": "Service-Public.fr : Livret A (fiche F2365, vérifiée le 1er août 2026)",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2365",
+      "evidence": "officielle"
+    },
+    "sp-ldds": {
+      "title": "Service-Public.fr : LDDS (fiche F2368, vérifiée le 1er août 2026)",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2368",
+      "evidence": "officielle"
+    },
+    "sp-lep": {
+      "title": "Service-Public.fr : LEP (fiche F2367, vérifiée le 1er août 2026)",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2367",
+      "evidence": "officielle"
+    },
+    "sp-jeune": {
+      "title": "Service-Public.fr : Livret jeune (fiche F2904, vérifiée le 1er août 2026)",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2904",
+      "evidence": "officielle"
+    },
+    "hist-livrets": {
+      "title": "Place des épargnants : historique des taux des livrets depuis 2020 (cite les arrêtés du JO)",
+      "url": "https://place-des-epargnants.fr/observatoire/taux-livrets/",
+      "evidence": "secondaire"
+    },
+    "hist-pel": {
+      "title": "Comparons les banques : taux du PEL par génération (cite Service-Public.fr F16140)",
+      "url": "https://www.comparonslesbanques.com/epargne/pel/",
+      "evidence": "secondaire"
+    },
+    "cel-2026-02": {
+      "title": "Presse spécialisée : CEL à 1 % au 1er février 2026",
+      "url": "https://placement.meilleurtaux.com/livret-epargne/actualites/2026-juillet/cel-le-taux-passe-a-1-25-des-le-1er-aout-2026.html",
+      "evidence": "secondaire"
+    }
+  },
+  "products": {
+    "livret-a": {
+      "label": "Livret A",
+      "ceiling": 2295000,
+      "ceilingSource": "sp-livret-a",
+      "taxFree": true,
+      "rates": [
+        {
+          "from": "2020-02-01",
+          "to": "2022-01-31",
+          "rate": 0.5,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-02-01",
+          "to": "2022-07-31",
+          "rate": 1.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-08-01",
+          "to": "2023-01-31",
+          "rate": 2.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2023-02-01",
+          "to": "2025-01-31",
+          "rate": 3.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-02-01",
+          "to": "2025-07-31",
+          "rate": 2.4,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-08-01",
+          "to": "2026-01-31",
+          "rate": 1.7,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-02-01",
+          "to": "2026-07-31",
+          "rate": 1.5,
+          "source": "minefi-2026-02",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-08-01",
+          "to": "2027-01-31",
+          "rate": 1.7,
+          "source": "jo-2026-08",
+          "verifiedAt": "2026-10-22"
+        }
+      ]
+    },
+    "ldds": {
+      "label": "LDDS",
+      "ceiling": 1200000,
+      "ceilingSource": "sp-ldds",
+      "taxFree": true,
+      "rates": [
+        {
+          "from": "2020-02-01",
+          "to": "2022-01-31",
+          "rate": 0.5,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-02-01",
+          "to": "2022-07-31",
+          "rate": 1.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-08-01",
+          "to": "2023-01-31",
+          "rate": 2.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2023-02-01",
+          "to": "2025-01-31",
+          "rate": 3.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-02-01",
+          "to": "2025-07-31",
+          "rate": 2.4,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-08-01",
+          "to": "2026-01-31",
+          "rate": 1.7,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-02-01",
+          "to": "2026-07-31",
+          "rate": 1.5,
+          "source": "minefi-2026-02",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-08-01",
+          "to": "2027-01-31",
+          "rate": 1.7,
+          "source": "jo-2026-08",
+          "verifiedAt": "2026-10-22"
+        }
+      ]
+    },
+    "lep": {
+      "label": "LEP",
+      "ceiling": 1000000,
+      "ceilingSource": "sp-lep",
+      "taxFree": true,
+      "rates": [
+        {
+          "from": "2020-02-01",
+          "to": "2022-01-31",
+          "rate": 1.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-02-01",
+          "to": "2022-07-31",
+          "rate": 2.2,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2022-08-01",
+          "to": "2023-01-31",
+          "rate": 4.6,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2023-02-01",
+          "to": "2023-07-31",
+          "rate": 6.1,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2023-08-01",
+          "to": "2024-01-31",
+          "rate": 6.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2024-02-01",
+          "to": "2024-07-31",
+          "rate": 5.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2024-08-01",
+          "to": "2025-01-31",
+          "rate": 4.0,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-02-01",
+          "to": "2025-07-31",
+          "rate": 3.5,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-08-01",
+          "to": "2026-01-31",
+          "rate": 2.7,
+          "source": "hist-livrets",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-02-01",
+          "to": "2026-07-31",
+          "rate": 2.5,
+          "source": "minefi-2026-02",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-08-01",
+          "to": "2027-01-31",
+          "rate": 2.5,
+          "source": "jo-2026-08-lep",
+          "verifiedAt": "2026-10-22"
+        }
+      ]
+    },
+    "cel": {
+      "label": "Compte épargne logement (CEL)",
+      "ceiling": 1530000,
+      "ceilingSource": "hist-pel",
+      "taxFree": false,
+      "rates": [
+        {
+          "from": "2026-02-01",
+          "to": "2026-07-31",
+          "rate": 1.0,
+          "source": "cel-2026-02",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-08-01",
+          "to": "2027-01-31",
+          "rate": 1.25,
+          "source": "jo-2026-08",
+          "verifiedAt": "2026-10-22"
+        }
+      ]
+    },
+    "pel": {
+      "label": "Plan épargne logement (PEL)",
+      "ceiling": 6120000,
+      "ceilingSource": "hist-pel",
+      "taxFree": false,
+      "byOpeningDate": true,
+      "rates": [
+        {
+          "from": "2015-02-01",
+          "to": "2016-01-31",
+          "rate": 2.0,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2016-02-01",
+          "to": "2016-07-31",
+          "rate": 1.5,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2016-08-01",
+          "to": "2022-12-31",
+          "rate": 1.0,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2023-01-01",
+          "to": "2023-12-31",
+          "rate": 2.0,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2024-01-01",
+          "to": "2024-12-31",
+          "rate": 2.25,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2025-01-01",
+          "to": "2025-12-31",
+          "rate": 1.75,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        },
+        {
+          "from": "2026-01-01",
+          "to": "2026-12-31",
+          "rate": 2.0,
+          "source": "hist-pel",
+          "verifiedAt": "2026-10-22"
+        }
+      ]
+    },
+    "livret-jeune": {
+      "label": "Livret jeune",
+      "ceiling": 160000,
+      "ceilingSource": "sp-jeune",
+      "taxFree": true,
+      "floorOf": "livret-a",
+      "rates": []
+    }
+  }
+}
