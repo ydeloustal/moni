@@ -15,8 +15,8 @@ describe('preferences', () => {
   });
 
   it('persists and reads back preferences', async () => {
-    await savePreferences({ theme: 'dark', historyRange: 12 });
-    expect(await loadPreferences()).toEqual({ theme: 'dark', historyRange: 12 });
+    await savePreferences({ theme: 'dark', accent: 'violet', historyRange: 12 });
+    expect(await loadPreferences()).toEqual({ theme: 'dark', accent: 'violet', historyRange: 12 });
     await clearPreferences();
     expect(await loadPreferences()).toEqual(DEFAULT_PREFERENCES);
   });
@@ -24,5 +24,15 @@ describe('preferences', () => {
   it('ignores corrupted values', () => {
     expect(parsePreferences('{')).toEqual(DEFAULT_PREFERENCES);
     expect(parsePreferences('{"theme":"pink","historyRange":7}')).toEqual(DEFAULT_PREFERENCES);
+    expect(parsePreferences('{"accent":"gold"}')).toEqual(DEFAULT_PREFERENCES);
+  });
+
+  it('keeps a valid accent and defaults older files to the neutral one', () => {
+    expect(parsePreferences('{"theme":"light","accent":"green"}').accent).toBe('green');
+    expect(parsePreferences('{"theme":"light","historyRange":12}')).toEqual({
+      theme: 'light',
+      accent: 'ink',
+      historyRange: 12,
+    });
   });
 });

@@ -1,9 +1,16 @@
 import { router } from 'expo-router';
-import type { ReactNode } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { useEffect, type ReactNode } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLayout } from '@/hooks/useLayout';
-import { space, useColors } from '@/theme';
+import { radius, space, useColors } from '@/theme';
 import { AppText } from './AppText';
 import { IconButton } from './Button';
 
@@ -27,11 +34,28 @@ export function ModalScreen({
 }) {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { gutter } = useLayout();
-  return (
+  const { gutter, dialogModals } = useLayout();
+
+  // Web dialog: Escape closes it, like any desktop window.
+  useEffect(() => {
+    if (!dialogModals || typeof document === 'undefined') return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    // Capture phase: a focused text field would otherwise swallow the key.
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
+  }, [dialogModals, onClose]);
+
+  const panel = (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: c.bg }}
+      style={
+        dialogModals
+          ? [styles.dialog, { backgroundColor: c.bg, borderColor: c.line }]
+          : { flex: 1, backgroundColor: c.bg }
+      }
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      accessibilityViewIsModal
     >
       <View
         style={[
@@ -55,7 +79,8 @@ export function ModalScreen({
         <IconButton icon="close" label="Fermer" onPress={onClose} testID="modal-close" />
       </View>
       <ScrollView
-        style={{ flex: 1 }}
+        // In a dialog the height follows the content, up to the window height.
+        style={dialogModals ? { flexGrow: 0, flexShrink: 1 } : { flex: 1 }}
         contentContainerStyle={{ padding: gutter, paddingBottom: space.xxl }}
         keyboardShouldPersistTaps="handled"
       >
@@ -78,9 +103,33 @@ export function ModalScreen({
       ) : null}
     </KeyboardAvoidingView>
   );
+
+  if (!dialogModals) return panel;
+  return (
+    <View style={[styles.backdrop, { backgroundColor: c.scrim }]}>
+      {/* Clicking outside the dialog closes it; the close button stays the accessible way. */}
+      <Pressable
+        style={StyleSheet.absoluteFill}
+        onPress={onClose}
+        accessible={false}
+        importantForAccessibility="no"
+      />
+      {panel}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
+  backdrop: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: space.xl },
+  dialog: {
+    width: '100%',
+    maxWidth: 720,
+    maxHeight: '100%',
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    overflow: 'hidden',
+    boxShadow: '0 20px 48px rgba(15, 18, 23, 0.25)',
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

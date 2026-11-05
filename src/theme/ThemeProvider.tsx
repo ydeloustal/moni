@@ -14,7 +14,7 @@ import {
   savePreferences,
   type Preferences,
 } from '@/services/preferences/preferences';
-import { darkPalette, lightPalette, type Palette } from './colors';
+import { paletteFor, type Palette } from './colors';
 
 export interface Theme {
   colors: Palette;
@@ -51,7 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const scheme =
       preferences.theme === 'system' ? (system === 'dark' ? 'dark' : 'light') : preferences.theme;
     return {
-      colors: scheme === 'dark' ? darkPalette : lightPalette,
+      colors: paletteFor(scheme, preferences.accent),
       scheme,
       preferences,
       setPreferences,

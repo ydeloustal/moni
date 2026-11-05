@@ -1,3 +1,5 @@
+import type { AccentPreference } from '@/services/preferences/preferences';
+
 /**
  * Colour tokens. Text/background pairs meet WCAG AA (4.5:1) in both modes;
  * `inc`/`exp`/`save` are chart colours used with a text label, never alone.
@@ -32,6 +34,56 @@ export interface Palette {
   infoLine: string;
   focus: string;
   scrim: string;
+  /** Active navigation item: text/icon colour and its background (from the accent preference). */
+  accent: string;
+  accentBg: string;
+}
+
+/**
+ * Menu accent colours. Each `fg` meets 4.5:1 on its `bg` and on `surface`, in both modes,
+ * so the 12 px tab labels stay readable.
+ */
+export const ACCENTS: Record<
+  AccentPreference,
+  { label: string; light: { fg: string; bg: string }; dark: { fg: string; bg: string } }
+> = {
+  ink: {
+    label: 'Neutre',
+    light: { fg: '#14181f', bg: '#e9ecf1' },
+    dark: { fg: '#eef1f5', bg: '#262c37' },
+  },
+  blue: {
+    label: 'Bleu',
+    light: { fg: '#1d5bb0', bg: '#e3edfb' },
+    dark: { fg: '#8dbaf6', bg: '#1b2b45' },
+  },
+  green: {
+    label: 'Vert',
+    light: { fg: '#11683a', bg: '#dff3e7' },
+    dark: { fg: '#62d595', bg: '#15301f' },
+  },
+  violet: {
+    label: 'Violet',
+    light: { fg: '#5a3bc2', bg: '#ece7fd' },
+    dark: { fg: '#b6a5fb', bg: '#2a2347' },
+  },
+  orange: {
+    label: 'Orange',
+    light: { fg: '#9c4510', bg: '#fde9dc' },
+    dark: { fg: '#f6a670', bg: '#3a2416' },
+  },
+  pink: {
+    label: 'Rose',
+    light: { fg: '#a3216a', bg: '#fbe4f0' },
+    dark: { fg: '#f290c3', bg: '#3a1a2b' },
+  },
+};
+
+/** Base palette for a colour scheme, with the chosen menu accent applied. */
+export function paletteFor(scheme: 'light' | 'dark', accent: AccentPreference): Palette {
+  const base = scheme === 'dark' ? darkPalette : lightPalette;
+  const a = ACCENTS[accent][scheme];
+  return { ...base, accent: a.fg, accentBg: a.bg };
 }
 
 export const lightPalette: Palette = {
@@ -64,6 +116,8 @@ export const lightPalette: Palette = {
   infoLine: '#cfdcf0',
   focus: '#2a78d6',
   scrim: 'rgba(15, 18, 23, 0.45)',
+  accent: '#14181f',
+  accentBg: '#e9ecf1',
 };
 
 export const darkPalette: Palette = {
@@ -96,4 +150,6 @@ export const darkPalette: Palette = {
   infoLine: '#25385c',
   focus: '#7cb0f2',
   scrim: 'rgba(0, 0, 0, 0.6)',
+  accent: '#eef1f5',
+  accentBg: '#262c37',
 };

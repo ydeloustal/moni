@@ -19,11 +19,16 @@ import {
 import { updateSettings } from '@/features/budget/domain/actions';
 import { commit, useBudget } from '@/hooks/useBudget';
 import { useToday } from '@/hooks/useToday';
-import { clearPreferences, type ThemePreference } from '@/services/preferences/preferences';
+import {
+  clearPreferences,
+  DEFAULT_PREFERENCES,
+  type ThemePreference,
+} from '@/services/preferences/preferences';
 import { budgetStore } from '@/services/store/instance';
 import { space, useTheme } from '@/theme';
 import { dayLongLabel } from '@/utils/dates';
 import { centsToInput, formatMoney, parseAmount } from '@/utils/money';
+import { AccentPicker } from '../components/AccentPicker';
 
 export function SettingsScreen() {
   const state = useBudget();
@@ -62,7 +67,7 @@ export function SettingsScreen() {
     if (!second) return;
     await budgetStore.wipe(today);
     await clearPreferences().catch(() => undefined);
-    setPreferences({ theme: 'system', historyRange: 6 });
+    setPreferences(DEFAULT_PREFERENCES);
     setBuffer(centsToInput(budgetStore.getSnapshot().state?.settings.buffer ?? 0));
     setWiped(true);
   }
@@ -84,6 +89,10 @@ export function SettingsScreen() {
                 { value: 'light', label: 'Clair' },
                 { value: 'dark', label: 'Sombre' },
               ]}
+            />
+            <AccentPicker
+              value={preferences.accent}
+              onChange={accent => setPreferences({ accent })}
             />
           </Card>
           <Card

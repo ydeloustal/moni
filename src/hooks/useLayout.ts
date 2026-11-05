@@ -1,4 +1,4 @@
-import { useWindowDimensions } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { breakpoints, SIDE_NAVIGATION_WIDTH, space } from '@/theme';
 
 export type SizeClass = 'compact' | 'medium' | 'expanded';
@@ -11,6 +11,8 @@ export interface Layout {
   gutter: number;
   /** Tabs on the left side (large screens) instead of the bottom. */
   sideNavigation: boolean;
+  /** Web on a tablet or computer: windows open as a centred dialog over the page. */
+  dialogModals: boolean;
 }
 
 /** Responsive helpers: phone (compact), tablet (medium), desktop web / large tablet (expanded). */
@@ -26,5 +28,6 @@ export function useLayout(): Layout {
     columns: content >= 1300 ? 3 : content >= 760 ? 2 : 1,
     gutter: size === 'compact' ? space.lg : space.xl,
     sideNavigation,
+    dialogModals: Platform.OS === 'web' && size !== 'compact',
   };
 }

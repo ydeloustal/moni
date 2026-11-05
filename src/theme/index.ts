@@ -1,4 +1,4 @@
-export { darkPalette, lightPalette, type Palette } from './colors';
+export { ACCENTS, darkPalette, lightPalette, paletteFor, type Palette } from './colors';
 export {
   breakpoints,
   fontFamily,

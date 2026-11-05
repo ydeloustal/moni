@@ -6,13 +6,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 export type HistoryRange = 6 | 12;
+/** Accent colour of the navigation menus (tab bar / side menu). */
+export const ACCENT_NAMES = ['ink', 'blue', 'green', 'violet', 'orange', 'pink'] as const;
+export type AccentPreference = (typeof ACCENT_NAMES)[number];
 
 export interface Preferences {
   theme: ThemePreference;
+  accent: AccentPreference;
   historyRange: HistoryRange;
 }
 
-export const DEFAULT_PREFERENCES: Preferences = { theme: 'system', historyRange: 6 };
+export const DEFAULT_PREFERENCES: Preferences = { theme: 'system', accent: 'ink', historyRange: 6 };
 
 const KEY = 'moni.preferences.v1';
 
@@ -25,6 +29,9 @@ export function parsePreferences(raw: string | null): Preferences {
         p.theme === 'light' || p.theme === 'dark' || p.theme === 'system'
           ? p.theme
           : DEFAULT_PREFERENCES.theme,
+      accent: ACCENT_NAMES.includes(p.accent as AccentPreference)
+        ? (p.accent as AccentPreference)
+        : DEFAULT_PREFERENCES.accent,
       historyRange: p.historyRange === 12 ? 12 : 6,
     };
   } catch {

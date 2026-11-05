@@ -6,6 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { AppState } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ConfirmProvider, LoadingState } from '@/components';
+import { useLayout } from '@/hooks/useLayout';
 import { StartupError } from '@/features/app/StartupError';
 import { useStoreSnapshot } from '@/hooks/useBudget';
 import { cleanupExports } from '@/services/files/files';
@@ -27,6 +28,7 @@ const PAGES: Record<string, string> = {
 function AppShell() {
   const { colors, scheme } = useTheme();
   const { status } = useStoreSnapshot();
+  const { dialogModals } = useLayout();
 
   useEffect(() => {
     void budgetStore.init();
@@ -76,7 +78,12 @@ function AppShell() {
           <Stack.Screen
             key={name}
             name={name}
-            options={{ presentation: 'modal', headerShown: false }}
+            options={{
+              // Web on a large screen: the page stays visible behind a centred dialog.
+              presentation: dialogModals ? 'transparentModal' : 'modal',
+              contentStyle: dialogModals ? { backgroundColor: 'transparent' } : undefined,
+              headerShown: false,
+            }}
           />
         ))}
         {Object.entries(PAGES).map(([name, title]) => (
