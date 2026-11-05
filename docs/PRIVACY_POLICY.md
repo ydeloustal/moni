@@ -50,6 +50,14 @@ hébergeur peut voir l'adresse IP de la connexion, comme pour toute page web, ma
   passe oubliée rend la sauvegarde irrécupérable : personne d'autre ne la connaît.
 - Les exports JSON et CSV ne sont pas chiffrés : conserve-les en lieu sûr.
 
+## Verrouillage de l'application
+
+L'accès à Moni est protégé par un code à 6 chiffres, et, si ton appareil le permet et si tu l'acceptes, par la
+biométrie (empreinte, visage). Le code n'est jamais enregistré en clair : seule une empreinte cryptographique (hachage
+salé) est conservée dans le stockage sécurisé du système (trousseau iOS, Keystore Android). La biométrie est gérée
+entièrement par le système : Moni ne reçoit ni ne conserve aucune donnée biométrique. Dans un navigateur, l'empreinte
+du code est conservée dans l'espace du site.
+
 ## Durée de conservation et suppression
 
 Les données sont conservées sur ton appareil jusqu'à ce que tu les effaces : Réglages → « Effacer toutes mes

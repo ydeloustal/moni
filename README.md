@@ -10,6 +10,7 @@ user's device (iOS, Android) or in their browser (web).
 - French regulated savings (Livret A, LDDS, LEP, CEL, PEL, Livret jeune) with dated and sourced rates and
   fortnight-based interest estimates; bank accounts with a user-typed rate
 - Goals and simulator, general benchmarks (never investment advice)
+- App lock: mandatory 6-digit PIN at first launch, then PIN or biometrics (Face ID, fingerprint) to open the app
 - Encrypted `.moni` backup (Argon2id + XChaCha20-Poly1305), JSON / CSV exports, import (including the legacy PHP version)
 
 Functional specification: [docs/CAHIER_DES_CHARGES.md](docs/CAHIER_DES_CHARGES.md) (French).
@@ -33,8 +34,8 @@ npm ci
 | Android  | `APP_VARIANT=development npx expo run:android` | Development build (Metro needs the INTERNET permission, kept only in development) |
 | iOS      | `APP_VARIANT=development npx expo run:ios`     | macOS + Xcode required                                                            |
 
-Expo Go is not supported: the app uses native modules (SQLite) and blocks permissions that Expo Go requires. Use a
-development build (`eas build --profile development`) or `expo run:*`.
+Quick test on a phone: `npx expo start --go` and scan the QR code with Expo Go (same Wi-Fi network). Expo Go ignores
+the permission lockdown of `app.config.ts`; use a development or preview build to test the real configuration.
 
 Set `EXPO_NO_TELEMETRY=1` to disable Expo CLI usage statistics on your machine (already set in CI and EAS profiles).
 
@@ -68,11 +69,18 @@ src/
     preferences/         Simple preferences (AsyncStorage / localStorage)
     files/               Export (share sheet / download) and import (document picker), no network
     pwa/                 Service worker registration (web, production only)
+    secure/              Secure storage: Keychain / Keystore (expo-secure-store), localStorage on the web
   components/            Reusable accessible components and SVG charts
   hooks/  theme/  types/  utils/
 public/                  Web: index.html template, manifest, icons
 scripts/                 build-pwa.mjs (service worker + CSP), check-rates.mjs, serve-dist.mjs
 ```
+
+App lock (`src/features/lock`): the PIN is never stored, only a salted PBKDF2-SHA256 hash (50 000 iterations) in the
+Keychain / Android Keystore. After 5 failures, attempts are refused for 30 s, then twice as long each time (up to
+15 min), counters persisted. Biometrics (expo-local-authentication) are offered when enrolled; the fallback is the
+app PIN, not the device passcode. Nothing of the app is rendered before unlocking; it re-locks after one minute in the
+background. A forgotten PIN can only be reset by erasing the data on the device (then restoring a backup).
 
 Key rules:
 
