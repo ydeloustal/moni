@@ -108,6 +108,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-sqlite',
     'expo-sharing',
     [
+      'expo-local-authentication',
+      { faceIDPermission: 'Moni utilise Face ID pour déverrouiller l’application.' },
+    ],
+    // PIN hash stored in the Keychain / Keystore, excluded from Android backups (keys cannot be restored).
+    ['expo-secure-store', { configureAndroidBackup: true, faceIDPermission: false }],
+    [
       'expo-splash-screen',
       {
         image: './assets/images/splash-icon.png',
