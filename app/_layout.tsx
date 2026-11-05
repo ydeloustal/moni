@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ConfirmProvider, LoadingState } from '@/components';
 import { useLayout } from '@/hooks/useLayout';
 import { StartupError } from '@/features/app/StartupError';
+import { LockGate } from '@/features/lock/components/LockGate';
 import { useStoreSnapshot } from '@/hooks/useBudget';
 import { cleanupExports } from '@/services/files/files';
 import { registerServiceWorker } from '@/services/pwa/registerServiceWorker';
@@ -17,7 +18,7 @@ import { ThemeProvider, useTheme } from '@/theme';
 void SplashScreen.preventAutoHideAsync().catch(() => undefined);
 registerServiceWorker();
 
-const MODALS = ['operation', 'balance', 'category', 'account', 'goal', 'backup'] as const;
+const MODALS = ['operation', 'balance', 'category', 'account', 'goal', 'backup', 'pin'] as const;
 const PAGES: Record<string, string> = {
   categories: 'Catégories',
   subscriptions: 'Abonnements',
@@ -97,7 +98,7 @@ function AppShell() {
   return (
     <NavigationTheme value={navigationTheme}>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
-      {content}
+      <LockGate>{content}</LockGate>
     </NavigationTheme>
   );
 }

@@ -17,6 +17,7 @@ import {
   useConfirm,
 } from '@/components';
 import { updateSettings } from '@/features/budget/domain/actions';
+import { LockSettings } from '@/features/lock/components/LockSettings';
 import { commit, useBudget } from '@/hooks/useBudget';
 import { useToday } from '@/hooks/useToday';
 import {
@@ -95,6 +96,7 @@ export function SettingsScreen() {
               onChange={accent => setPreferences({ accent })}
             />
           </Card>
+          <LockSettings />
           <Card
             title="Marge de sécurité"
             subtitle="Le plan d’épargne ne fait jamais descendre ton compte courant sous ce montant."
