@@ -80,6 +80,11 @@ function Welcome() {
           label="Ajouter une ligne récurrente"
           onPress={() => router.push({ pathname: '/operation', params: { source: 'rule' } })}
         />
+        <Button
+          icon="download"
+          label="J’ai déjà Moni sur un autre appareil"
+          onPress={() => router.push('/transfer-receive')}
+        />
       </Row>
     </Hero>
   );

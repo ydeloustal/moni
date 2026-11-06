@@ -79,13 +79,13 @@ function deriveKey(
 export const isPassphraseLongEnough = (passphrase: string): boolean =>
   passphrase.normalize('NFKC').length >= MIN_PASSPHRASE;
 
-/** Encrypts a text (the JSON state). `random(n)` must be cryptographically secure. */
-export async function encryptBackup(
-  plaintext: string,
+/** Encrypts raw bytes into a backup envelope. `random(n)` must be cryptographically secure. */
+export async function encryptBytes(
+  bytes: Uint8Array,
   passphrase: string,
   random: (n: number) => Uint8Array,
   options: CryptoOptions = {},
-): Promise<string> {
+): Promise<EncryptedEnvelope> {
   if (!isPassphraseLongEnough(passphrase)) {
     throw new Error(`Phrase de passe trop courte (${MIN_PASSPHRASE} caractères minimum).`);
   }
@@ -97,8 +97,8 @@ export async function encryptBackup(
   const nonce = random(24);
   const key = await deriveKey(passphrase, kdf, options.onProgress);
   try {
-    const data = xchacha20poly1305(key, nonce, header(kdf)).encrypt(encoder.encode(plaintext));
-    const envelope: EncryptedEnvelope = {
+    const data = xchacha20poly1305(key, nonce, header(kdf)).encrypt(bytes);
+    return {
       format: BACKUP_FORMAT,
       v: 1,
       encrypted: true,
@@ -107,10 +107,19 @@ export async function encryptBackup(
       nonce: toBase64(nonce),
       data: toBase64(data),
     };
-    return JSON.stringify(envelope);
   } finally {
     key.fill(0);
   }
+}
+
+/** Encrypts a text (the JSON state). `random(n)` must be cryptographically secure. */
+export async function encryptBackup(
+  plaintext: string,
+  passphrase: string,
+  random: (n: number) => Uint8Array,
+  options: CryptoOptions = {},
+): Promise<string> {
+  return JSON.stringify(await encryptBytes(encoder.encode(plaintext), passphrase, random, options));
 }
 
 /** UNENCRYPTED export (readable by anyone): for informed use only (spreadsheet, migration). */
@@ -153,18 +162,27 @@ export function parseBackup(text: string): ParsedBackup {
   return { kind: 'encrypted', envelope: o as EncryptedEnvelope };
 }
 
-export async function decryptBackup(
+/** Decrypts an envelope back to raw bytes. Wrong passphrase or tampered data: throws. */
+export async function decryptBytes(
   envelope: EncryptedEnvelope,
   passphrase: string,
   options: Pick<CryptoOptions, 'onProgress'> = {},
-): Promise<string> {
+): Promise<Uint8Array> {
   const key = await deriveKey(passphrase, envelope.kdf, options.onProgress);
   try {
     const cipher = xchacha20poly1305(key, fromBase64(envelope.nonce), header(envelope.kdf));
-    return decoder.decode(cipher.decrypt(fromBase64(envelope.data)));
+    return cipher.decrypt(fromBase64(envelope.data));
   } catch {
     throw new Error('Phrase de passe incorrecte, ou fichier modifié.');
   } finally {
     key.fill(0);
   }
+}
+
+export async function decryptBackup(
+  envelope: EncryptedEnvelope,
+  passphrase: string,
+  options: Pick<CryptoOptions, 'onProgress'> = {},
+): Promise<string> {
+  return decoder.decode(await decryptBytes(envelope, passphrase, options));
 }

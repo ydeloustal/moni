@@ -18,7 +18,17 @@ import { ThemeProvider, useTheme } from '@/theme';
 void SplashScreen.preventAutoHideAsync().catch(() => undefined);
 registerServiceWorker();
 
-const MODALS = ['operation', 'balance', 'category', 'account', 'goal', 'backup', 'pin'] as const;
+const MODALS = [
+  'operation',
+  'balance',
+  'category',
+  'account',
+  'goal',
+  'backup',
+  'pin',
+  'transfer-send',
+  'transfer-receive',
+] as const;
 const PAGES: Record<string, string> = {
   settings: 'Réglages',
   categories: 'Catégories',

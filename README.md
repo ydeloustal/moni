@@ -106,7 +106,8 @@ Key rules:
 Moni makes **no network call at runtime** on any platform. See [docs/NETWORK_AUDIT.md](docs/NETWORK_AUDIT.md).
 
 - No backend, API, analytics, crash reporting or OTA updates (`expo-updates` is not installed, `updates.enabled: false`).
-- Android production builds block every permission, `INTERNET` included.
+- Android production builds block every permission, `INTERNET` included, except biometrics (app lock) and the
+  camera (scanner of the QR-code transfer between devices; nothing is saved, the microphone stays blocked).
 - Web: a Content-Security-Policy with `connect-src 'none'` makes the browser refuse any request issued by the page.
 - Fonts (system fonts), icons (inline SVG) and images are bundled.
 
@@ -184,7 +185,7 @@ server {
   add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'none'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'" always;
   add_header X-Content-Type-Options nosniff always;
   add_header Referrer-Policy no-referrer always;
-  add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+  add_header Permissions-Policy "camera=(self), microphone=(), geolocation=()" always;
 
   location = /sw.js { add_header Cache-Control "no-cache"; }
   location = /index.html { add_header Cache-Control "no-cache"; }

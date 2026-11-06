@@ -5,8 +5,9 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
  *
  * Privacy by design: Moni never talks to a server. In particular:
  *  - expo-updates is not installed and updates are disabled (no OTA);
- *  - production Android builds block every permission, INTERNET included.
- *    Development builds keep INTERNET because Metro (the dev server) needs it.
+ *  - production Android builds block every permission, INTERNET included, except CAMERA:
+ *    it is only used to scan the QR codes of a device-to-device transfer (no photo is
+ *    saved, the microphone stays blocked). Development builds keep INTERNET for Metro.
  *
  * Set APP_VARIANT=development (or use the EAS "development" profile) for a dev build.
  */
@@ -24,7 +25,6 @@ const BLOCKED_ANDROID_PERMISSIONS = [
   'android.permission.READ_PHONE_STATE',
   'android.permission.SYSTEM_ALERT_WINDOW',
   'android.permission.RECORD_AUDIO',
-  'android.permission.CAMERA',
   'android.permission.ACCESS_FINE_LOCATION',
   'android.permission.ACCESS_COARSE_LOCATION',
   'android.permission.READ_EXTERNAL_STORAGE',
@@ -107,6 +107,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-router',
     'expo-sqlite',
     'expo-sharing',
+    [
+      'expo-camera',
+      {
+        cameraPermission:
+          'Moni utilise la caméra uniquement pour scanner les QR codes d’un transfert entre tes appareils. Aucune image n’est enregistrée.',
+        microphonePermission: false,
+        recordAudioAndroid: false,
+      },
+    ],
     [
       'expo-local-authentication',
       { faceIDPermission: 'Moni utilise Face ID pour déverrouiller l’application.' },

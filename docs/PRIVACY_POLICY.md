@@ -27,9 +27,20 @@ L'éditeur n'a accès à **aucune** de ces données : elles ne lui sont jamais e
 
 L'application ne contacte aucun serveur : pas de compte, pas de synchronisation, pas de mise à jour à distance, pas
 de téléchargement de taux, pas de polices ni d'images externes. Sur Android, l'application ne demande même pas la
-permission d'accès à Internet. Dans un navigateur, une politique de sécurité du contenu interdit à la page toute
+permission d'accès à Internet (sa seule permission sensible est la caméra, pour le transfert par QR code). Dans un navigateur, une politique de sécurité du contenu interdit à la page toute
 requête réseau ; seule la version web elle-même est chargée depuis son hébergeur, comme n'importe quel site (cet
 hébergeur peut voir l'adresse IP de la connexion, comme pour toute page web, mais ne reçoit aucune donnée de budget).
+
+## Transfert entre appareils
+
+Tu peux copier tes données d'un appareil à un autre (téléphone, tablette, ordinateur) sans passer par Internet :
+l'appareil qui envoie affiche une suite de QR codes, l'autre les lit avec sa caméra. Les données sont compressées
+puis **chiffrées** sur l'appareil (Argon2id + XChaCha20-Poly1305) avec un code à usage unique affiché à l'écran : une
+personne qui filmerait les QR codes sans ce code ne peut rien en lire. Rien n'est envoyé à un serveur.
+
+La **caméra** n'est utilisée que pendant le scan d'un transfert, et seulement si tu l'autorises. Aucune image n'est
+enregistrée ni envoyée ; le micro n'est jamais demandé. Dans un navigateur, l'image de la webcam est analysée dans la
+page même.
 
 ## Sauvegardes du système
 

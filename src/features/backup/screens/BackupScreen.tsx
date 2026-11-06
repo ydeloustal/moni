@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   AppText,
@@ -64,6 +65,27 @@ export function BackupScreen() {
   return (
     <ModalScreen title="Sauvegarder, exporter, importer" onClose={close}>
       {message ? <Banner tone={message.tone} title={message.text} /> : null}
+
+      <Card
+        title="Transférer vers un autre appareil"
+        subtitle="Téléphone ↔ téléphone ↔ ordinateur, par QR code animé. 100 % local : aucun serveur, aucune connexion."
+      >
+        <Row style={{ flexWrap: 'wrap' }}>
+          <Button
+            kind="primary"
+            icon="upload"
+            label="Envoyer"
+            onPress={() => router.push('/transfer-send')}
+            testID="transfer-send"
+          />
+          <Button
+            icon="download"
+            label="Recevoir"
+            onPress={() => router.push('/transfer-receive')}
+            testID="transfer-receive"
+          />
+        </Row>
+      </Card>
 
       <Card
         title="Sauvegarde chiffrée (.moni)"
