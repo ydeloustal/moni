@@ -70,8 +70,9 @@ s'applique pas en cas de faute lourde ou intentionnelle de l'éditeur.
 - **Le code source** est publié sous la licence [PolyForm Noncommercial 1.0.0](../LICENSE) : il peut être lu,
   modifié et partagé à des fins non commerciales. Toute utilisation commerciale du code (par exemple vendre ou
   publier une application dérivée à des fins commerciales) nécessite l'accord écrit préalable de l'éditeur.
-- Le logo et les éléments graphiques de Moni sont la propriété de l'éditeur. Les bibliothèques tierces utilisées
-  restent soumises à leurs propres licences.
+- Le logo et les éléments graphiques de Moni sont la propriété de l'éditeur. Pour éviter toute confusion avec
+  l'application officielle, une version dérivée doit porter un autre nom que « Moni ». Les bibliothèques tierces
+  utilisées restent soumises à leurs propres licences ([liste](../THIRD_PARTY_NOTICES.md)).
 
 ## 7. Données personnelles
 
