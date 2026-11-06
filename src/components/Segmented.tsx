@@ -31,7 +31,7 @@ export function Segmented<T extends string | number>({
       <View
         accessibilityRole="radiogroup"
         accessibilityLabel={label}
-        style={[styles.group, { backgroundColor: c.sunken, flexWrap: wrap ? 'wrap' : 'nowrap' }]}
+        style={[styles.group, { backgroundColor: c.chip, flexWrap: wrap ? 'wrap' : 'nowrap' }]}
       >
         {options.map(o => {
           const selected = o.value === value;
@@ -47,13 +47,14 @@ export function Segmented<T extends string | number>({
                 wrap ? null : { flex: 1 },
                 {
                   backgroundColor: selected ? c.surface : 'transparent',
-                  borderColor: state.focused ? c.focus : selected ? c.lineStrong : 'transparent',
+                  borderColor: state.focused ? c.focus : 'transparent',
                 },
+                selected ? styles.selected : null,
               ]}
             >
               <AppText
                 variant="label"
-                tone={selected ? 'ink' : 'muted'}
+                tone={selected ? 'ink' : 'ink2'}
                 align="center"
                 numberOfLines={1}
               >
@@ -68,12 +69,13 @@ export function Segmented<T extends string | number>({
 }
 
 const styles = StyleSheet.create({
-  group: { flexDirection: 'row', borderRadius: radius.md, padding: 3, gap: 3 },
+  selected: { boxShadow: '0 1px 3px rgba(15, 23, 42, 0.12)' },
+  group: { flexDirection: 'row', borderRadius: radius.md, padding: 4, gap: 4 },
   item: {
     minHeight: TOUCH_TARGET - 6,
     paddingHorizontal: space.md,
     borderRadius: radius.sm,
-    borderWidth: 1,
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -34,3 +34,33 @@ describe('menu accents', () => {
     expect(paletteFor('light', 'ink')).toEqual(lightPalette);
   });
 });
+
+describe('palettes', () => {
+  const textPairs = [
+    ['ink', 'bg'],
+    ['ink', 'surface'],
+    ['ink2', 'surface'],
+    ['muted', 'bg'],
+    ['muted', 'surface'],
+    ['muted', 'sunken'],
+    ['link', 'surface'],
+    ['good', 'goodBg'],
+    ['warn', 'warnBg'],
+    ['bad', 'badBg'],
+    ['info', 'infoBg'],
+    ['onPrimary', 'primary'],
+    ['onHero', 'hero'],
+    ['heroMuted', 'hero'],
+    ['heroGood', 'hero'],
+    ['heroBad', 'hero'],
+  ] as const;
+
+  it.each([
+    ['light', lightPalette],
+    ['dark', darkPalette],
+  ] as const)('%s text pairs meet 4.5:1', (_, p) => {
+    for (const [fg, bg] of textPairs) {
+      expect(contrast(p[fg], p[bg])).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+});

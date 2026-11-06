@@ -72,7 +72,13 @@ export function BalanceScreen() {
       title="Mettre à jour mon solde"
       onClose={close}
       footer={
-        <Button kind="primary" label="Enregistrer le solde" onPress={save} testID="balance-save" />
+        <Button
+          kind="primary"
+          label="Enregistrer le solde"
+          onPress={save}
+          testID="balance-save"
+          style={{ flexGrow: 1 }}
+        />
       }
     >
       <AppText tone="ink2">Ouvre l’appli de ta banque et recopie le solde affiché.</AppText>

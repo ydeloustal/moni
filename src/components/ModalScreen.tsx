@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLayout } from '@/hooks/useLayout';
-import { radius, space, useColors } from '@/theme';
+import { radius, space, TOUCH_TARGET, useColors } from '@/theme';
 import { AppText } from './AppText';
-import { IconButton } from './Button';
+import { Icon } from './Icon';
+import type { InteractionState } from './pressable';
 
 /** Closes a modal, or goes to `fallback` when the modal was opened directly (web deep link). */
 export function closeModal(fallback: '/' | '/operations' | '/savings' | '/settings' = '/') {
@@ -51,32 +52,43 @@ export function ModalScreen({
     <KeyboardAvoidingView
       style={
         dialogModals
-          ? [styles.dialog, { backgroundColor: c.bg, borderColor: c.line }]
-          : { flex: 1, backgroundColor: c.bg }
+          ? [styles.dialog, { backgroundColor: c.surface, borderColor: c.line }]
+          : { flex: 1, backgroundColor: c.surface }
       }
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       accessibilityViewIsModal
     >
+      {Platform.OS === 'ios' && !dialogModals ? (
+        <View style={[styles.grabber, { backgroundColor: c.lineStrong }]} />
+      ) : null}
       <View
         style={[
           styles.header,
           {
-            paddingTop: Platform.OS === 'android' ? insets.top + space.sm : space.sm,
-            paddingHorizontal: gutter - space.sm,
-            borderBottomColor: c.line,
+            paddingTop: Platform.OS === 'android' ? insets.top + space.md : space.md,
+            paddingHorizontal: gutter,
             backgroundColor: c.surface,
           },
         ]}
       >
-        <AppText
-          variant="heading"
-          accessibilityRole="header"
-          style={{ flex: 1, paddingLeft: space.sm }}
-          numberOfLines={1}
-        >
+        <AppText variant="title" accessibilityRole="header" style={{ flex: 1 }} numberOfLines={2}>
           {title}
         </AppText>
-        <IconButton icon="close" label="Fermer" onPress={onClose} testID="modal-close" />
+        <Pressable
+          onPress={onClose}
+          accessibilityRole="button"
+          accessibilityLabel="Fermer"
+          testID="modal-close"
+          style={(state: InteractionState) => [
+            styles.close,
+            {
+              backgroundColor: state.hovered || state.pressed ? c.chip : c.sunken,
+              borderColor: state.focused ? c.focus : 'transparent',
+            },
+          ]}
+        >
+          <Icon name="close" size={20} color={c.ink} strokeWidth={2.2} />
+        </Pressable>
       </View>
       <ScrollView
         // In a dialog the height follows the content, up to the window height.
@@ -133,8 +145,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: space.md,
     paddingBottom: space.sm,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  grabber: { width: 40, height: 5, borderRadius: 3, alignSelf: 'center', marginTop: space.sm },
+  close: {
+    width: TOUCH_TARGET,
+    height: TOUCH_TARGET,
+    borderRadius: radius.md,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   column: { width: '100%', maxWidth: 680, alignSelf: 'center', gap: space.lg },
   footer: { paddingTop: space.md, borderTopWidth: StyleSheet.hairlineWidth },

@@ -20,6 +20,7 @@ registerServiceWorker();
 
 const MODALS = ['operation', 'balance', 'category', 'account', 'goal', 'backup', 'pin'] as const;
 const PAGES: Record<string, string> = {
+  settings: 'Réglages',
   categories: 'Catégories',
   subscriptions: 'Abonnements',
   rates: 'Taux des livrets',
@@ -68,8 +69,9 @@ function AppShell() {
       <Stack
         screenOptions={{
           contentStyle: { backgroundColor: colors.bg },
-          headerStyle: { backgroundColor: colors.surface },
+          headerStyle: { backgroundColor: colors.bg },
           headerTintColor: colors.ink,
+          headerTitleStyle: { fontWeight: '800' },
           headerShadowVisible: false,
           headerBackTitle: 'Retour',
         }}

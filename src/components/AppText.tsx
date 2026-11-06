@@ -2,7 +2,19 @@ import { Text, type TextProps, type TextStyle } from 'react-native';
 import { fontFamily, typography, useColors, type Palette, type TextVariant } from '@/theme';
 
 export type TextTone =
-  'ink' | 'ink2' | 'muted' | 'good' | 'warn' | 'bad' | 'info' | 'link' | 'onPrimary';
+  | 'ink'
+  | 'ink2'
+  | 'muted'
+  | 'good'
+  | 'warn'
+  | 'bad'
+  | 'info'
+  | 'link'
+  | 'onPrimary'
+  | 'onHero'
+  | 'heroMuted'
+  | 'heroGood'
+  | 'heroBad';
 
 export interface AppTextProps extends TextProps {
   variant?: TextVariant;

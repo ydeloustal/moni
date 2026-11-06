@@ -17,6 +17,7 @@ import {
 import { monthTotals } from '@/features/budget/domain/occurrences';
 import { cutSimulation } from '@/features/insights/domain/insights';
 import { useBudget } from '@/hooks/useBudget';
+import { useLayout } from '@/hooks/useLayout';
 import { useToday } from '@/hooks/useToday';
 import type { HistoryRange } from '@/services/preferences/preferences';
 import { space, useColors, useTheme } from '@/theme';
@@ -29,6 +30,7 @@ import {
   forecastRows,
   history,
 } from '../domain/history';
+import { ForecastPanel } from '../components/ForecastPanel';
 
 type Period = 'past' | 'future';
 
@@ -38,6 +40,8 @@ export function HistoryScreen() {
   const c = useColors();
   const { preferences, setPreferences } = useTheme();
   const range: HistoryRange = preferences.historyRange;
+  const [view, setView] = useState<'forecast' | 'history'>('forecast');
+  const { sideNavigation } = useLayout();
   const [period, setPeriod] = useState<Period>('past');
   const current = monthOf(today);
   const rows = useMemo(
@@ -72,9 +76,38 @@ export function HistoryScreen() {
   const cuts = useMemo(() => cutSimulation(state), [state]);
   const hasData = state.rules.length > 0 || state.txs.length > 0;
 
+  const header = (
+    <>
+      {sideNavigation ? null : (
+        <AppText variant="h1" accessibilityRole="header">
+          Prévisions
+        </AppText>
+      )}
+      <Segmented
+        label="Vue"
+        value={view}
+        onChange={setView}
+        options={[
+          { value: 'forecast', label: '12 prochains mois' },
+          { value: 'history', label: 'Historique' },
+        ]}
+      />
+    </>
+  );
+
+  if (hasData && view === 'forecast') {
+    return (
+      <Screen>
+        {header}
+        <ForecastPanel />
+      </Screen>
+    );
+  }
+
   if (!hasData) {
     return (
       <Screen>
+        {header}
         <EmptyState icon="chart" title="Pas encore d’historique">
           Ajoute tes revenus et dépenses : l’historique et les statistiques apparaîtront ici.
         </EmptyState>
@@ -84,6 +117,7 @@ export function HistoryScreen() {
 
   return (
     <Screen>
+      {header}
       <Row style={{ flexWrap: 'wrap', gap: space.lg, alignItems: 'flex-end' }}>
         <View style={{ flex: 1, minWidth: 220 }}>
           <Segmented

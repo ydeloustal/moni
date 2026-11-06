@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   AppText,
   Button,
@@ -10,7 +10,7 @@ import {
   EmptyState,
   Grid,
   ListRow,
-  MonthSwitcher,
+  DayChip,
   Row,
   Screen,
   Segmented,
@@ -18,21 +18,30 @@ import {
 } from '@/components';
 import { categoryOf } from '@/features/categories/domain/defaults';
 import { commit, useBudget } from '@/hooks/useBudget';
+import { useLayout } from '@/hooks/useLayout';
+import { useSelectedMonth } from '@/hooks/useSelectedMonth';
 import { useToday } from '@/hooks/useToday';
 import { space, useColors } from '@/theme';
 import { dayLabel, monthLabel, monthOf, monthToInput } from '@/utils/dates';
 import { formatMoney, formatMoneySigned } from '@/utils/money';
 import { setPaid } from '../domain/actions';
+import { overdue } from '../domain/balance';
 import { monthStatus, totalsOf, type OccurrenceStatus } from '../domain/occurrences';
 import { frequencyLabel } from '../forms/operationForm';
 
 type Filter = 'all' | 'rule' | 'tx';
 
-function OccurrenceRow({ o }: { o: OccurrenceStatus }) {
+function OccurrenceRow({ o, late }: { o: OccurrenceStatus; late: boolean }) {
   const state = useBudget();
   const c = useColors();
   const category = o.kind === 'exp' ? categoryOf(state.categories, o.categoryId) : null;
-  const status = o.locked ? 'compris dans le solde' : o.paid ? 'passé' : 'à venir';
+  const status = o.locked
+    ? 'compris dans le solde'
+    : o.paid
+      ? 'passé'
+      : late
+        ? 'aurait dû passer'
+        : 'à venir';
   return (
     <Row style={{ gap: 0 }}>
       <Checkbox
@@ -44,23 +53,26 @@ function OccurrenceRow({ o }: { o: OccurrenceStatus }) {
       <View style={{ flex: 1 }}>
         <ListRow
           title={o.name}
-          subtitle={[
-            dayLabel(o.date),
-            category?.name ?? 'Revenu',
-            o.source === 'rule' ? 'récurrent' : null,
-            status,
-          ]
+          subtitle={[category?.name ?? 'Revenu', o.source === 'rule' ? 'récurrent' : null, status]
             .filter(Boolean)
             .join(' · ')}
           left={
-            <View
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                backgroundColor: category?.color ?? c.inc,
-              }}
-            />
+            <View>
+              <DayChip day={o.date} tone={late ? 'warn' : 'default'} />
+              <View
+                style={{
+                  position: 'absolute',
+                  right: -2,
+                  top: -2,
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  borderWidth: 2,
+                  borderColor: c.surface,
+                  backgroundColor: category?.color ?? c.inc,
+                }}
+              />
+            </View>
           }
           right={
             <AppText numeric weight="600" tone={o.kind === 'inc' ? 'good' : 'ink'}>
@@ -84,10 +96,14 @@ function OccurrenceRow({ o }: { o: OccurrenceStatus }) {
 export function OperationsScreen() {
   const state = useBudget();
   const today = useToday();
-  const [month, setMonth] = useState(monthOf(today));
+  const { sideNavigation } = useLayout();
+  const { month } = useSelectedMonth();
   const [filter, setFilter] = useState<Filter>('all');
   const list = useMemo(() => monthStatus(state, month), [state, month]);
+  const lateKeys = useMemo(() => new Set(overdue(state, today).map(o => o.key)), [state, today]);
   const shown = list.filter(o => filter === 'all' || o.source === filter);
+  const upcoming = shown.filter(o => !o.done);
+  const passed = shown.filter(o => o.done);
   const totals = totalsOf(list);
   const rules = useMemo(
     () =>
@@ -99,7 +115,11 @@ export function OperationsScreen() {
 
   return (
     <Screen>
-      <MonthSwitcher month={month} onChange={setMonth} />
+      {sideNavigation ? null : (
+        <AppText variant="h1" accessibilityRole="header">
+          Opérations
+        </AppText>
+      )}
       <Row style={{ flexWrap: 'wrap', gap: space.md, alignItems: 'stretch' }}>
         <Stat label="Revenus" value={formatMoney(totals.inc)} tone="good" />
         <Stat label="Dépenses" value={formatMoney(totals.exp)} />
@@ -136,12 +156,24 @@ export function OperationsScreen() {
               Ajoute une dépense ou un revenu ponctuel, ou une ligne qui revient chaque mois.
             </EmptyState>
           ) : (
-            shown.map((o, i) => (
-              <View key={o.key}>
-                {i > 0 ? <Divider /> : null}
-                <OccurrenceRow o={o} />
-              </View>
-            ))
+            [
+              { title: 'À venir', items: upcoming },
+              { title: 'Déjà passé', items: passed },
+            ]
+              .filter(g => g.items.length > 0)
+              .map(g => (
+                <View key={g.title}>
+                  <AppText variant="caption" tone="muted" weight="700" style={styles.section}>
+                    {g.title.toUpperCase()}
+                  </AppText>
+                  {g.items.map((o, i) => (
+                    <View key={o.key}>
+                      {i > 0 ? <Divider /> : null}
+                      <OccurrenceRow o={o} late={lateKeys.has(o.key)} />
+                    </View>
+                  ))}
+                </View>
+              ))
           )}
         </Card>
         <View style={{ gap: space.lg }}>
@@ -216,3 +248,7 @@ export function OperationsScreen() {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  section: { letterSpacing: 0.6, marginTop: space.md, marginBottom: space.xs },
+});

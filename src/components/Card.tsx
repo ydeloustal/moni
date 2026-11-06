@@ -42,6 +42,6 @@ export function Card({
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: radius.lg, borderWidth: 1, padding: space.lg, gap: space.md },
+  card: { borderRadius: radius.lg, borderWidth: 1, padding: space.lg + 2, gap: space.md },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
 });

@@ -4,7 +4,7 @@ import { AppText } from './AppText';
 import { Icon, type IconName } from './Icon';
 import type { InteractionState } from './pressable';
 
-export type ButtonKind = 'primary' | 'secondary' | 'ghost' | 'danger';
+export type ButtonKind = 'primary' | 'secondary' | 'ghost' | 'danger' | 'destructive';
 
 export interface ButtonProps {
   label: string;
@@ -40,6 +40,7 @@ export function Button({
     secondary: { bg: c.surface, fg: c.ink, border: c.lineStrong },
     ghost: { bg: 'transparent', fg: c.link, border: 'transparent' },
     danger: { bg: c.badBg, fg: c.bad, border: c.badLine },
+    destructive: { bg: c.bad, fg: c.onPrimary, border: c.bad },
   }[kind];
   const inactive = disabled || busy;
   return (

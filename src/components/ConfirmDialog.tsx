@@ -7,6 +7,7 @@ import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { radius, space, useColors } from '@/theme';
 import { AppText } from './AppText';
 import { Button } from './Button';
+import { Icon } from './Icon';
 
 export interface ConfirmOptions {
   title: string;
@@ -63,18 +64,27 @@ export function ConfirmProvider({ children }: { children: ReactNode }) {
               accessibilityRole="alert"
               style={[styles.dialog, { backgroundColor: c.surface, borderColor: c.line }]}
             >
-              <AppText variant="heading" accessibilityRole="header">
+              {options.destructive ? (
+                <View style={[styles.icon, { backgroundColor: c.badBg }]}>
+                  <Icon name="alert" size={26} color={c.bad} />
+                </View>
+              ) : null}
+              <AppText variant="title" align="center" accessibilityRole="header">
                 {options.title}
               </AppText>
-              {options.message ? <AppText tone="ink2">{options.message}</AppText> : null}
+              {options.message ? (
+                <AppText tone="ink2" align="center">
+                  {options.message}
+                </AppText>
+              ) : null}
               <View style={styles.actions}>
-                <Button label={options.cancelLabel ?? 'Annuler'} onPress={() => close(false)} />
                 <Button
                   label={options.confirmLabel ?? 'Confirmer'}
-                  kind={options.destructive ? 'danger' : 'primary'}
+                  kind={options.destructive ? 'destructive' : 'primary'}
                   onPress={() => close(true)}
                   testID="confirm-accept"
                 />
+                <Button label={options.cancelLabel ?? 'Annuler'} onPress={() => close(false)} />
               </View>
             </View>
           ) : null}
@@ -95,16 +105,18 @@ const styles = StyleSheet.create({
   dialog: {
     width: '100%',
     maxWidth: 440,
-    borderRadius: radius.lg,
+    borderRadius: radius.xl + 4,
     borderWidth: 1,
     padding: space.xl,
     gap: space.md,
+    alignItems: 'center',
   },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    flexWrap: 'wrap',
-    gap: space.sm,
-    marginTop: space.sm,
+  actions: { alignSelf: 'stretch', gap: space.sm, marginTop: space.sm },
+  icon: {
+    width: 56,
+    height: 56,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

@@ -69,7 +69,7 @@ export function CategoryScreen() {
           {existing && others.length > 0 ? (
             <Button kind="danger" icon="trash" label="Supprimer" onPress={() => void remove()} />
           ) : null}
-          <Button kind="primary" label="Enregistrer" onPress={save} />
+          <Button kind="primary" label="Enregistrer" onPress={save} style={{ flexGrow: 1 }} />
         </>
       }
     >

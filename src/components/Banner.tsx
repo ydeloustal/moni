@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
     gap: space.md,
-    padding: space.md,
-    borderRadius: radius.md,
+    padding: space.md + 2,
+    borderRadius: radius.lg - 2,
     borderWidth: 1,
   },
 });

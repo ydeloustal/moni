@@ -186,7 +186,13 @@ export function AccountScreen() {
           {existing ? (
             <Button kind="danger" icon="trash" label="Supprimer" onPress={() => void remove()} />
           ) : null}
-          <Button kind="primary" label="Enregistrer" onPress={save} testID="account-save" />
+          <Button
+            kind="primary"
+            label="Enregistrer"
+            onPress={save}
+            testID="account-save"
+            style={{ flexGrow: 1 }}
+          />
         </>
       }
     >

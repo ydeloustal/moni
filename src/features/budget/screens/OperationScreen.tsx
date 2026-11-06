@@ -154,7 +154,13 @@ export function OperationScreen() {
               <Button icon="copy" label="Dupliquer" onPress={duplicate} />
             </>
           ) : null}
-          <Button kind="primary" label="Enregistrer" onPress={save} testID="operation-save" />
+          <Button
+            kind="primary"
+            label="Enregistrer"
+            onPress={save}
+            testID="operation-save"
+            style={{ flexGrow: 1 }}
+          />
         </>
       }
     >

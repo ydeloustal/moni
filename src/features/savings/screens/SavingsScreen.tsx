@@ -9,6 +9,7 @@ import {
   Divider,
   EmptyState,
   Grid,
+  Hero,
   Legend,
   LineChart,
   ProgressBar,
@@ -19,6 +20,7 @@ import { projection } from '@/features/budget/domain/projection';
 import { Simulator } from '@/features/goals/components/Simulator';
 import { goalProgress } from '@/features/goals/domain/goals';
 import { useBudget } from '@/hooks/useBudget';
+import { useLayout } from '@/hooks/useLayout';
 import { useToday } from '@/hooks/useToday';
 import { space, useColors } from '@/theme';
 import { monthLabel, monthShort } from '@/utils/dates';
@@ -32,6 +34,7 @@ export function SavingsScreen() {
   const state = useBudget();
   const today = useToday();
   const c = useColors();
+  const { sideNavigation } = useLayout();
   const plan = useMemo(() => projection(state, 12), [state]);
   const total = state.savings.reduce((sum, a) => sum + savingsBalance(a, today), 0);
   const planned = plan[plan.length - 1]?.savedCumul ?? 0;
@@ -45,35 +48,33 @@ export function SavingsScreen() {
           taux connu ne sont pas comptées.
         </Banner>
       ) : null}
-      <Card
-        title="Mon épargne"
-        subtitle={`${state.savings.length} compte(s)`}
-        right={
-          <Button
-            small
-            icon="plus"
-            label="Livret"
-            accessibilityLabel="Ajouter un livret"
-            onPress={() => router.push('/account')}
-          />
-        }
-      >
+      {sideNavigation ? null : (
+        <AppText variant="h1" accessibilityRole="header">
+          Épargne
+        </AppText>
+      )}
+      <Hero>
+        <Row style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+          <AppText tone="heroMuted">{`Épargne totale estimée · ${state.savings.length} compte(s)`}</AppText>
+        </Row>
         <AppText
-          variant="display"
+          variant="hero"
+          tone="onHero"
           numeric
           accessibilityLabel={`Épargne totale estimée : ${formatMoney(total)}`}
         >
           {formatMoney(total)}
         </AppText>
-        <Row style={{ flexWrap: 'wrap' }}>
+        <Row style={{ flexWrap: 'wrap', marginTop: space.sm }}>
           <Button
             small
-            kind="ghost"
-            label="Voir les taux et leurs sources"
-            onPress={() => router.push('/rates')}
+            icon="plus"
+            label="Ajouter un livret"
+            onPress={() => router.push('/account')}
           />
+          <Button small label="Taux et sources" onPress={() => router.push('/rates')} />
         </Row>
-      </Card>
+      </Hero>
       {state.savings.length === 0 ? (
         <EmptyState
           icon="leaf"
