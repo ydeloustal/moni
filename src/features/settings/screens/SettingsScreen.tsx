@@ -143,7 +143,7 @@ export function SettingsScreen() {
             <Divider />
             <ListRow
               title="Mentions légales"
-              subtitle="Éditeur, licence, responsabilité"
+              subtitle="Éditeur, conditions d’utilisation, licence"
               onPress={() => router.push('/legal')}
             />
             <Divider />

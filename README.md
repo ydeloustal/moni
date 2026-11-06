@@ -200,9 +200,10 @@ Keeping one folder per version and pointing `current` to it with a symbolic link
 
 Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE) — not an OSI "open source" license.
 You may read, use, modify and share the code for any noncommercial purpose (personal use, study, hobby projects,
-charities, education…). Any commercial use requires prior written permission: contact yoandeloustal45@gmail.com.
+charities, education…). Any commercial use of the code requires prior written permission: contact
+yoandeloustal45@gmail.com. The official app (stores, official web version) is free for everyone, for any purpose.
 
 **Contributions**: by submitting a contribution, you agree that it is distributed under the project's license and
 that Yoan Deloustal may use, modify and distribute it, including in his own distribution of Moni.
 
-Legal notice: [docs/LEGAL_NOTICE.md](docs/LEGAL_NOTICE.md).
+Legal notice and terms of use: [docs/LEGAL_NOTICE.md](docs/LEGAL_NOTICE.md).

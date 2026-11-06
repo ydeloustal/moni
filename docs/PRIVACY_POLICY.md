@@ -74,7 +74,8 @@ données », ou désinstallation de l'application (ou suppression des données d
 ## Tes droits
 
 L'éditeur ne détenant aucune donnée te concernant, il ne peut ni y accéder, ni les rectifier, ni les effacer : tu en
-gardes la maîtrise complète sur ton appareil. Pour toute question : yoandeloustal45@gmail.com. Tu peux aussi
+gardes la maîtrise complète sur ton appareil. Pour toute question : yoandeloustal45@gmail.com (ton adresse e-mail et ton message servent uniquement à te
+répondre, puis ne sont pas conservés au-delà de l'échange). Tu peux aussi
 adresser une réclamation à la CNIL (www.cnil.fr).
 
 ## Enfants

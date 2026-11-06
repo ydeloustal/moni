@@ -35,7 +35,7 @@ const PAGES: Record<string, string> = {
   subscriptions: 'Abonnements',
   rates: 'Taux des livrets',
   privacy: 'Confidentialité',
-  legal: 'Mentions légales',
+  legal: 'Mentions légales et conditions',
 };
 
 function AppShell() {
