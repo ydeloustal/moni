@@ -5,6 +5,7 @@ export { Card } from './Card';
 export { Checkbox } from './Checkbox';
 export { ConfirmProvider, useConfirm } from './ConfirmDialog';
 export { Icon, type IconName } from './Icon';
+export { Logo } from './Logo';
 export { DayChip, Hero, HeroTile } from './Hero';
 export { Divider, Grid, Row, Stack } from './layout';
 export { Legend } from './Legend';

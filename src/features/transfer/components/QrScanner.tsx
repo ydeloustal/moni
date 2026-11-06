@@ -20,7 +20,7 @@ export function QrScanner({ onScan }: { onScan: (data: string) => void }) {
         </AppText>
         <Button
           kind="primary"
-          icon="target"
+          icon="camera"
           label={blocked ? 'Ouvrir les réglages' : 'Activer la caméra'}
           onPress={() => (blocked ? void Linking.openSettings() : void requestPermission())}
           testID="camera-start"

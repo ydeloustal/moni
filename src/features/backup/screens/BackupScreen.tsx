@@ -73,13 +73,13 @@ export function BackupScreen() {
         <Row style={{ flexWrap: 'wrap' }}>
           <Button
             kind="primary"
-            icon="upload"
+            icon="qr"
             label="Envoyer"
             onPress={() => router.push('/transfer-send')}
             testID="transfer-send"
           />
           <Button
-            icon="download"
+            icon="scan"
             label="Recevoir"
             onPress={() => router.push('/transfer-receive')}
             testID="transfer-receive"

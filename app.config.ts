@@ -15,8 +15,8 @@ const IS_DEV_BUILD =
   process.env.APP_VARIANT === 'development' || process.env.EAS_BUILD_PROFILE === 'development';
 
 const APP_ID = 'fr.moni.app';
-const BRAND_LIGHT = '#f4f5f7';
-const BRAND_DARK = '#14181f';
+const BRAND_LIGHT = '#f6f7f9';
+const BRAND_DARK = '#0f172a';
 
 const BLOCKED_ANDROID_PERMISSIONS = [
   ...(IS_DEV_BUILD ? [] : ['android.permission.INTERNET']),

@@ -148,7 +148,7 @@ export function PinPad({
         )}
         <Key label="0" accessibilityLabel="0" onPress={() => press('0')} disabled={inactive} />
         <Key
-          icon="chevronLeft"
+          icon="backspace"
           accessibilityLabel="Effacer le dernier chiffre"
           onPress={erase}
           disabled={inactive || !value}

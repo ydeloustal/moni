@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText } from '@/components/AppText';
 import { Icon, type IconName } from '@/components/Icon';
+import { Logo } from '@/components/Logo';
 import type { InteractionState } from '@/components/pressable';
 import { useLayout } from '@/hooks/useLayout';
 import { useSelectedMonth } from '@/hooks/useSelectedMonth';
@@ -136,9 +137,9 @@ export function TopBar({ title }: { title: string }) {
         onPress={() => router.navigate('/')}
         accessibilityRole="button"
         accessibilityLabel="Moni, accueil"
-        style={[styles.logo, { backgroundColor: c.primary }]}
+        style={styles.logo}
       >
-        <AppText style={{ color: c.onPrimary, fontSize: 18, fontWeight: '800' }}>M</AppText>
+        <Logo size={40} />
       </Pressable>
       <View style={{ flex: 1, alignItems: 'center' }}>
         <MonthPicker />
@@ -272,9 +273,7 @@ export function SideBar({ state, navigateToTab, insets }: BottomTabBarProps) {
       ]}
     >
       <View style={styles.brand}>
-        <View style={[styles.logo, { backgroundColor: c.primary }]}>
-          <AppText style={{ color: c.onPrimary, fontSize: 18, fontWeight: '800' }}>M</AppText>
-        </View>
+        <Logo size={40} />
         <AppText variant="title">Moni</AppText>
       </View>
       <Pressable
@@ -326,7 +325,7 @@ export function SideBar({ state, navigateToTab, insets }: BottomTabBarProps) {
 
 const styles = StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', gap: space.xs, paddingBottom: space.sm },
-  logo: { width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
+  logo: { width: 40, height: 40, borderRadius: 10 },
   month: { flexDirection: 'row', alignItems: 'center' },
   monthBox: { borderWidth: 1, borderRadius: radius.md, padding: 2 },
   iconBtn: {

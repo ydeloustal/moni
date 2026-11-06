@@ -81,7 +81,7 @@ function Welcome() {
           onPress={() => router.push({ pathname: '/operation', params: { source: 'rule' } })}
         />
         <Button
-          icon="download"
+          icon="smartphone"
           label="J’ai déjà Moni sur un autre appareil"
           onPress={() => router.push('/transfer-receive')}
         />

@@ -105,7 +105,7 @@ export function QrScanner({ onScan }: { onScan: (data: string) => void }) {
         </AppText>
         <Button
           kind="primary"
-          icon="target"
+          icon="camera"
           label={shownError ? 'Réessayer' : 'Activer la caméra'}
           onPress={() => {
             setError(null);
