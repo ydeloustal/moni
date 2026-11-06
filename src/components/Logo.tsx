@@ -1,8 +1,11 @@
-import Svg, { Circle, G, Path, Rect } from 'react-native-svg';
+import Svg, { Circle, Path, Rect } from 'react-native-svg';
 import { useColors } from '@/theme';
 
+const INK = '#0f172a';
+const GREEN = '#4ade80';
+
 /**
- * Moni mark: an "M" with a green dot, on a rounded tile.
+ * Moni logo: a lowercase "m" stamped on a green coin, on a rounded tile.
  * Same drawing as assets/brand/moni-icon.svg (1024 × 1024 viewBox).
  */
 export function Logo({ size = 40 }: { size?: number }) {
@@ -15,18 +18,16 @@ export function Logo({ size = 40 }: { size?: number }) {
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      <Rect width={1024} height={1024} rx={256} fill={c.primary} />
-      <G transform="translate(-42 46)">
-        <Path
-          d="M296 720V336l216 240 216-240v384"
-          stroke={c.onPrimary}
-          strokeWidth={96}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <Circle cx={800} cy={224} r={62} fill={c.save} />
-      </G>
+      <Rect width={1024} height={1024} rx={256} fill={c.hero} />
+      <Circle cx={512} cy={512} r={300} fill={GREEN} />
+      <Path
+        d="M362 610V490a75 75 0 0 1 150 0v120M512 490a75 75 0 0 1 150 0v120"
+        stroke={INK}
+        strokeWidth={80}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
     </Svg>
   );
 }

@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Moni">
-  <!-- Moni logo: white M on ink, with the green "saved on this device" dot. Source of every app icon. -->
+  <!-- Moni logo: a lowercase "m" stamped on a green coin, on an ink tile. -->
   <rect width="1024" height="1024" rx="230" fill="#0f172a"/>
-  <g transform="translate(-42 46)">
-    <path d="M296 720V336l216 240 216-240v384" fill="none" stroke="#ffffff" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="800" cy="224" r="62" fill="#4ade80"/>
-  </g>
+  <circle cx="512" cy="512" r="300" fill="#4ade80"/>
+  <path d="M362 610V490a75 75 0 0 1 150 0v120M512 490a75 75 0 0 1 150 0v120" fill="none" stroke="#0f172a" stroke-width="80" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
