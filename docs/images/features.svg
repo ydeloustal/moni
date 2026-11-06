@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" role="img" aria-labelledby="t">
+  <title id="t">Fonctionnalités de Moni : Budget au quotidien, Prévisions 12 mois, Livrets réglementés, Objectifs &amp; simulateur, Catégories, Verrouillage, Sauvegarde chiffrée, Transfert par QR codes</title>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+    <g transform="translate(0 0)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#e3edfb"/>
+      <g transform="translate(36 36)" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Budget au quotidien</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Lignes récurrentes, opérations,</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">reste du mois et budget par jour</text>
+    </g>
+    <g transform="translate(325 0)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#dff3e7"/>
+      <g transform="translate(36 36)" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Prévisions 12 mois</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Fin de mois prévue et plan</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">d'épargne prudent</text>
+    </g>
+    <g transform="translate(650 0)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#dff3e7"/>
+      <g transform="translate(36 36)" fill="none" stroke="#11683a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Livrets réglementés</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Livret A, LDDS, LEP, PEL…</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">intérêts par quinzaine</text>
+    </g>
+    <g transform="translate(975 0)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#fde9dc"/>
+      <g transform="translate(36 36)" fill="none" stroke="#9c4510" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 1 0 20 0a10 10 0 1 0 -20 0"/><path d="M6 12a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Objectifs &amp; simulateur</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Progression, délai estimé,</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">comparaison de taux</text>
+    </g>
+    <g transform="translate(0 210)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#fbe4f0"/>
+      <g transform="translate(36 36)" fill="none" stroke="#a3216a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><path d="M7 7.5a0.5 0.5 0 1 0 1 0a0.5 0.5 0 1 0 -1 0"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Catégories</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Besoins / envies, règle 50/30/20,</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">abonnements lissés par mois</text>
+    </g>
+    <g transform="translate(325 210)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#e8ebf0"/>
+      <g transform="translate(36 36)" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-7a2 2 0 0 1 2 -2z"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Verrouillage</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Code à 6 chiffres</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">ou biométrie</text>
+    </g>
+    <g transform="translate(650 210)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#e3edfb"/>
+      <g transform="translate(36 36)" fill="none" stroke="#1d5bb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10L12 15L17 10"/><path d="M12 15L12 3"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Sauvegarde chiffrée</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">Fichier .moni (Argon2id +</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">XChaCha20), exports JSON / CSV</text>
+    </g>
+    <g transform="translate(975 210)">
+      <rect x="1" y="1" width="303" height="188" rx="22" fill="#ffffff" stroke="#e7e9ee" stroke-width="2"/>
+      <rect x="24" y="24" width="56" height="56" rx="16" fill="#ece7fd"/>
+      <g transform="translate(36 36)" fill="none" stroke="#5a3bc2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h3a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1z"/><path d="M17 3h3a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1z"/><path d="M4 16h3a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1z"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></g>
+      <text x="24" y="118" fill="#0f172a" font-size="21" font-weight="700">Transfert par QR codes</text>
+      <text x="24" y="146" fill="#5b6577" font-size="15.5">D'un appareil à l'autre,</text>
+      <text x="24" y="168" fill="#5b6577" font-size="15.5">sans Internet ni Bluetooth</text>
+    </g>
+  </g>
+</svg>
