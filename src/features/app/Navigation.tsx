@@ -172,7 +172,7 @@ export function BottomBar({ state, navigateToTab, insets }: BottomTabBarProps) {
           { borderColor: s.focused ? c.focus : 'transparent' },
         ]}
       >
-        <View style={[styles.tabPill, { backgroundColor: focused ? c.accentBg : 'transparent' }]}>
+        <View style={[styles.tabPill, { backgroundColor: focused ? c.accentBg : c.surface }]}>
           <Icon name={meta.icon} size={24} color={focused ? c.accent : c.muted} strokeWidth={2} />
         </View>
         <AppText
@@ -333,6 +333,7 @@ const styles = StyleSheet.create({
     height: TOUCH_TARGET,
     borderRadius: 12,
     borderWidth: 2,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -354,11 +355,13 @@ const styles = StyleSheet.create({
     minHeight: 52,
     borderRadius: radius.md,
     borderWidth: 2,
+    overflow: 'hidden',
   },
   tabPill: {
     width: 56,
     height: 32,
     borderRadius: 16,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -405,6 +408,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
     borderRadius: radius.md,
     borderWidth: 2,
+    overflow: 'hidden',
   },
   sideSaved: {
     flexDirection: 'row',

@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     gap: space.sm,
     paddingHorizontal: space.md,
     borderRadius: radius.md,
+    overflow: 'hidden',
     borderWidth: 1.5,
   },
   dot: {

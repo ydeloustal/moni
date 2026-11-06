@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     minHeight: TOUCH_TARGET - 6,
     paddingHorizontal: space.md,
     borderRadius: radius.sm,
+    overflow: 'hidden',
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',

@@ -161,7 +161,7 @@ export function PinPad({
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center', gap: space.xl },
   dots: { flexDirection: 'row', gap: space.md, height: 24, alignItems: 'center' },
-  dot: { width: 16, height: 16, borderRadius: 8, borderWidth: 2 },
+  dot: { width: 16, height: 16, borderRadius: 8, borderWidth: 2, overflow: 'hidden' },
   grid: {
     width: 264,
     flexDirection: 'row',
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     width: 76,
     height: 64,
     borderRadius: radius.lg,
+    overflow: 'hidden',
     borderWidth: 1,
     borderColor: 'transparent',
     alignItems: 'center',

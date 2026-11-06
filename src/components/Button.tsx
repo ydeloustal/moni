@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   base: {
     borderRadius: radius.md,
     borderWidth: 1,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
     height: TOUCH_TARGET,
     borderRadius: radius.pill,
     borderWidth: 2,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   },
