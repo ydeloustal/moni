@@ -1,9 +1,6 @@
 # Politique de confidentialité de Moni
 
-_Dernière mise à jour : 4 novembre 2026_
-
-> Texte à faire relire par un juriste avant publication, et à compléter : identité de l'éditeur et adresse de contact
-> (champs entre crochets).
+_Dernière mise à jour : 6 novembre 2026_
 
 ## En bref
 
@@ -13,7 +10,7 @@ rapport de plantage automatique.
 
 ## Éditeur
 
-[Nom ou raison sociale de l'éditeur], [adresse], [adresse e-mail de contact].
+Yoan Deloustal, particulier — contact : yoandeloustal45@gmail.com. Voir aussi les [mentions légales](LEGAL_NOTICE.md).
 
 ## Données traitées et lieu de stockage
 
@@ -66,7 +63,7 @@ données », ou désinstallation de l'application (ou suppression des données d
 ## Tes droits
 
 L'éditeur ne détenant aucune donnée te concernant, il ne peut ni y accéder, ni les rectifier, ni les effacer : tu en
-gardes la maîtrise complète sur ton appareil. Pour toute question : [adresse e-mail de contact]. Tu peux aussi
+gardes la maîtrise complète sur ton appareil. Pour toute question : yoandeloustal45@gmail.com. Tu peux aussi
 adresser une réclamation à la CNIL (www.cnil.fr).
 
 ## Enfants

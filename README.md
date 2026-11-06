@@ -110,7 +110,8 @@ Moni makes **no network call at runtime** on any platform. See [docs/NETWORK_AUD
 - Web: a Content-Security-Policy with `connect-src 'none'` makes the browser refuse any request issued by the page.
 - Fonts (system fonts), icons (inline SVG) and images are bundled.
 
-Privacy policy for the stores: [docs/PRIVACY_POLICY.md](docs/PRIVACY_POLICY.md).
+Privacy policy for the stores: [docs/PRIVACY_POLICY.md](docs/PRIVACY_POLICY.md). Legal notice:
+[docs/LEGAL_NOTICE.md](docs/LEGAL_NOTICE.md).
 
 ## Regulated rates
 
@@ -196,5 +197,11 @@ Keeping one folder per version and pointing `current` to it with a symbolic link
 
 ## License
 
-Proprietary — all rights reserved (see `LICENSE`). The choice of an open-source license (AGPL-3.0 or MPL-2.0) is
-pending.
+Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE) — not an OSI "open source" license.
+You may read, use, modify and share the code for any noncommercial purpose (personal use, study, hobby projects,
+charities, education…). Any commercial use requires prior written permission: contact yoandeloustal45@gmail.com.
+
+**Contributions**: by submitting a contribution, you agree that it is distributed under the project's license and
+that Yoan Deloustal may use, modify and distribute it, including in his own distribution of Moni.
+
+Legal notice: [docs/LEGAL_NOTICE.md](docs/LEGAL_NOTICE.md).
