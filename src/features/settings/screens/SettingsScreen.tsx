@@ -142,6 +142,12 @@ export function SettingsScreen() {
             />
             <Divider />
             <ListRow
+              title="Mentions légales"
+              subtitle="Éditeur, licence, responsabilité"
+              onPress={() => router.push('/legal')}
+            />
+            <Divider />
+            <ListRow
               title="Taux des livrets et leurs sources"
               onPress={() => router.push('/rates')}
             />

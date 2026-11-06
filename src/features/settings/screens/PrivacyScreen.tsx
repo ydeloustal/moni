@@ -48,19 +48,6 @@ export function PrivacyScreen() {
             jamais un conseil en investissement.
           </AppText>
         </Card>
-        <Card title="Mentions légales">
-          <AppText tone="ink2">
-            Éditeur : Yoan Deloustal (particulier), directeur de la publication.
-          </AppText>
-          <AppText tone="ink2" selectable>
-            Contact : yoandeloustal45@gmail.com
-          </AppText>
-          <AppText tone="ink2">
-            Code source sous licence PolyForm Noncommercial 1.0.0 : utilisation, modification et
-            partage libres à des fins non commerciales ; tout usage commercial nécessite l’accord de
-            l’éditeur. L’application est fournie en l’état, sans garantie. Droit français.
-          </AppText>
-        </Card>
       </Grid>
     </Screen>
   );
