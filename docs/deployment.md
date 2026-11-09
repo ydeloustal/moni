@@ -32,7 +32,17 @@ Fichiers :
 - `scripts/deploy/remote.sh` : gestion des releases **sur le VPS** (transmis par SSH, jamais copié) ;
 - `scripts/deploy/healthcheck.sh` : health check HTTP ;
 - `scripts/deploy/set-version.sh` : injection de la version ;
-- `deploy/apache/moni.conf` : vhost Apache.
+- `deploy/apache/` : vhosts Apache (`moni.conf` pour HTTP → HTTPS, `moni-le-ssl.conf` pour HTTPS) et
+  `install.sh` qui les installe.
+
+Serveur actuel :
+
+| Élément            | Valeur                                                         |
+| ------------------ | -------------------------------------------------------------- |
+| VPS                | `mmi24c04.mmi-troyes.fr` (SSH, port 22)                        |
+| Utilisateur CI     | `deploy` (clé dédiée, option `restrict`)                       |
+| Site               | https://moni.mmi24c04.mmi-troyes.fr                            |
+| Empreinte SSH hôte | `SHA256:p+az/VlxPOsxFnUtjtNFjR9WuXS/jgzpjbz0bzHUqZw` (ED25519) |
 
 Arborescence sur le VPS :
 
@@ -59,7 +69,7 @@ Dans **Settings > Environments**, crée l'environnement **`production`** :
 | `VPS_USER`        | secret   | environnement `production` | `deploy`                                                                  |
 | `VPS_PORT`        | secret   | environnement `production` | Optionnel, port SSH si différent de 22                                    |
 | `EXPO_TOKEN`      | secret   | dépôt (Secrets > Actions)  | Jeton d'accès Expo                                                        |
-| `PROD_URL`        | variable | environnement `production` | URL publique, sans `/` final, ex. `https://moni.example.fr`               |
+| `PROD_URL`        | variable | environnement `production` | URL publique, sans `/` final : `https://moni.mmi24c04.mmi-troyes.fr`      |
 
 Générer les valeurs (sur ton poste) :
 
@@ -87,7 +97,7 @@ gh secret set VPS_KNOWN_HOSTS --env production --body "$(ssh-keyscan -t ed25519 
 gh secret set VPS_HOST --env production --body "<host>"
 gh secret set VPS_USER --env production --body "deploy"
 gh secret set EXPO_TOKEN
-gh variable set PROD_URL --env production --body "https://moni.example.fr"
+gh variable set PROD_URL --env production --body "https://moni.mmi24c04.mmi-troyes.fr"
 ```
 
 Après le premier déploiement réussi, supprime `~/.ssh/moni_deploy` de ton poste si tu n'en as plus
@@ -127,20 +137,17 @@ Vérifie depuis ton poste : `ssh -i ~/.ssh/moni_deploy deploy@<host> 'ls -l /var
 
 ### Apache
 
+Le sous-domaine et son certificat Let's Encrypt existent déjà (`certbot --apache -d <domaine>` pour un
+nouveau domaine). Pour installer ou mettre à jour les vhosts depuis le dépôt :
+
 ```bash
-# Depuis le dépôt : copie le vhost, puis remplace moni.example.fr par ton domaine
-scp deploy/apache/moni.conf <toi>@<host>:/tmp/moni.conf
-sudo mv /tmp/moni.conf /etc/apache2/sites-available/moni.conf
-sudo sed -i 's/moni.example.fr/<ton-domaine>/' /etc/apache2/sites-available/moni.conf
-
-sudo a2enmod headers
-sudo a2ensite moni
-sudo a2dissite 000-default   # optionnel
-sudo apache2ctl configtest && sudo systemctl reload apache2
-
-# HTTPS (obligatoire pour le service worker / la PWA) ; certbot crée le vhost :443 et le renouvellement
-sudo certbot --apache -d <ton-domaine>
+scp -r deploy/apache mmi24c04@mmi24c04.mmi-troyes.fr:/tmp/moni-apache
+ssh -t mmi24c04@mmi24c04.mmi-troyes.fr 'sudo bash /tmp/moni-apache/install.sh'
 ```
+
+`install.sh` sauvegarde les fichiers en place (`*.bak-<date>`), installe les nouveaux, active
+`headers`/`rewrite`/`ssl` et ne recharge Apache que si `apache2ctl configtest` passe (sinon il
+restaure la sauvegarde). Il exige que `/var/www/moni/current` existe déjà.
 
 Points clés du vhost : `DocumentRoot /var/www/moni/current` avec `FollowSymLinks`, `FallbackResource
 /index.html` pour le routing côté client (Expo Router), `no-cache` sur `index.html`, `sw.js`,
