@@ -83,10 +83,15 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    // <input> has an intrinsic width on web; without this it overflows the box.
+    minWidth: 0,
+    alignSelf: 'stretch',
     paddingHorizontal: space.md,
     paddingVertical: space.sm,
     minHeight: TOUCH_TARGET,
-    // The surrounding box already shows the focus ring.
-    ...(Platform.OS === 'web' ? { outlineWidth: 0 } : null),
+    borderRadius: radius.md,
+    // The surrounding box already shows the focus ring. Firefox ignores
+    // outline-width with its `auto` style, so the style must be removed too.
+    ...(Platform.OS === 'web' ? ({ outlineWidth: 0, outlineStyle: 'none' } as object) : null),
   },
 });
