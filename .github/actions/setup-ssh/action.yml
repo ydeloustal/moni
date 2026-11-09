@@ -1,0 +1,57 @@
+name: Setup SSH to the VPS
+description: >
+  Installs the deploy key and the pinned host key (no blind trust of the server), and exposes the
+  server under the SSH alias "vps" (ssh vps ..., rsync ... vps:/path).
+
+inputs:
+  private-key:
+    description: Private key of the deploy user (secret VPS_SSH_KEY)
+    required: true
+  known-hosts:
+    description: Host key line(s) of the VPS, from ssh-keyscan (secret VPS_KNOWN_HOSTS)
+    required: true
+  host:
+    description: VPS hostname or IP (secret VPS_HOST)
+    required: true
+  user:
+    description: Deploy user on the VPS (secret VPS_USER)
+    required: true
+  port:
+    description: SSH port
+    required: false
+    default: '22'
+
+runs:
+  using: composite
+  steps:
+    - name: Configure SSH
+      shell: bash
+      env:
+        PRIVATE_KEY: ${{ inputs.private-key }}
+        KNOWN_HOSTS: ${{ inputs.known-hosts }}
+        VPS_HOST: ${{ inputs.host }}
+        VPS_USER: ${{ inputs.user }}
+        VPS_PORT: ${{ inputs.port }}
+      run: |
+        for name in PRIVATE_KEY KNOWN_HOSTS VPS_HOST VPS_USER; do
+          if [ -z "${!name}" ]; then
+            echo "::error::Missing SSH setting $name: check the secrets of the 'production' environment"
+            exit 1
+          fi
+        done
+        install -m 700 -d ~/.ssh
+        printf '%s\n' "$PRIVATE_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+        cat > ~/.ssh/config <<EOF
+        Host vps
+          HostName $VPS_HOST
+          User $VPS_USER
+          Port ${VPS_PORT:-22}
+          IdentityFile ~/.ssh/deploy_key
+          IdentitiesOnly yes
+          StrictHostKeyChecking yes
+          BatchMode yes
+          ConnectTimeout 15
+        EOF
+        ssh vps true && echo "SSH connection to the VPS OK"

@@ -1,5 +1,7 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 
+import pkg from './package.json';
+
 /**
  * App configuration.
  *
@@ -13,6 +15,16 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
  */
 const IS_DEV_BUILD =
   process.env.APP_VARIANT === 'development' || process.env.EAS_BUILD_PROFILE === 'development';
+
+/**
+ * User-facing version (web, Android versionName, iOS CFBundleShortVersionString).
+ * Single source of truth: package.json. The release workflow overwrites it with the version of the
+ * pushed vX.Y.Z tag before building, so web and EAS builds always carry the tag's version.
+ */
+const APP_VERSION = pkg.version;
+
+/** EAS project id (not a secret), printed by `npx eas-cli@latest init`. Required by CI mobile builds. */
+const EAS_PROJECT_ID = '';
 
 const APP_ID = 'fr.moni.app';
 const BRAND_LIGHT = '#f6f7f9';
@@ -43,7 +55,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: IS_DEV_BUILD ? 'Moni (dev)' : 'Moni',
   slug: 'moni',
-  version: '1.0.0',
+  version: APP_VERSION,
   description:
     'Gestion de budget personnel, privée par conception : tes données restent sur ton appareil.',
   scheme: 'moni',
@@ -137,4 +149,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     typedRoutes: false,
     reactCompiler: true,
   },
+  ...(EAS_PROJECT_ID ? { extra: { ...config.extra, eas: { projectId: EAS_PROJECT_ID } } } : {}),
 });
