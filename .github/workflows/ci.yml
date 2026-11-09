@@ -1,9 +1,15 @@
 name: CI
 
+# Continuous integration (Git Flow).
+# Runs on every push to and every pull request targeting the long-lived branches (develop, main).
+# The two jobs below ("checks" and "build-web") are the *required status checks* of the branch
+# rulesets on develop and main: a PR cannot be merged while one of them is red.
+# See docs/deployment.md, section "Protection des branches".
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
+    branches: [main, develop]
   schedule:
     # Every Monday: fails if the bundled regulated rates are past their expected revision.
     - cron: '0 6 * * 1'
@@ -11,18 +17,28 @@ on:
 permissions:
   contents: read
 
+# A new push on the same PR cancels the run in progress (pushes to develop/main always run to completion).
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   EXPO_NO_TELEMETRY: '1'
 
 jobs:
-  check:
+  # Lint, typecheck, formatting and unit tests.
+  checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+
+      # Caches ~/.npm, keyed on package-lock.json.
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
@@ -30,4 +46,17 @@ jobs:
       - run: npm run test:ci
       - run: npm run rates:check
       - run: npx expo-doctor
+
+  # Verification build of the web version (expo export --platform web + PWA post-processing).
+  # Nothing is deployed from here: deployment only happens from a vX.Y.Z tag (release.yml).
+  build-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - run: npm run build:web
