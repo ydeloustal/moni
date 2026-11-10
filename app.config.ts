@@ -24,7 +24,7 @@ const IS_DEV_BUILD =
 const APP_VERSION = pkg.version;
 
 /** EAS project id (not a secret), printed by `npx eas-cli@latest init`. Required by CI mobile builds. */
-const EAS_PROJECT_ID = '';
+const EAS_PROJECT_ID = 'a354609d-112f-47a5-80c0-77b3a4dcd4ac';
 
 const APP_ID = 'fr.moni.app';
 const BRAND_LIGHT = '#f6f7f9';
@@ -55,6 +55,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: IS_DEV_BUILD ? 'Moni (dev)' : 'Moni',
   slug: 'moni',
+  owner: 'ydeloustal',
   version: APP_VERSION,
   description:
     'Gestion de budget personnel, privée par conception : tes données restent sur ton appareil.',
