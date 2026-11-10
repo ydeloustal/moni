@@ -112,7 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:
-      name: production
+      name: Deploy
       url: ${{ vars.PROD_URL }}
     env:
       VERSION: ${{ needs.checks.outputs.version }}
@@ -121,7 +121,7 @@ jobs:
       - name: Check configuration
         run: |
           if [ -z "$PROD_URL" ]; then
-            echo "::error::Variable PROD_URL (e.g. https://moni.mmi24c04.mmi-troyes.fr) is not set on the 'production' environment"
+            echo "::error::Variable PROD_URL (e.g. https://moni.mmi24c04.mmi-troyes.fr) is not set on the 'Deploy' environment"
             exit 1
           fi
 

@@ -55,21 +55,21 @@ Arborescence sur le VPS :
 
 ## Secrets et variables GitHub
 
-Dans **Settings > Environments**, crée l'environnement **`production`** :
+Dans **Settings > Environments**, crée l'environnement **`Deploy`** :
 
 - _Deployment branches and tags_ : **Selected branches and tags**, puis ajoute la règle de tag `v*.*.*` et
   la branche `main` (nécessaire au workflow Rollback, lancé depuis `main`) ;
 - optionnel : _Required reviewers_ = toi, pour valider chaque mise en production.
 
-| Nom               | Type     | Où                         | Valeur                                                                    |
-| ----------------- | -------- | -------------------------- | ------------------------------------------------------------------------- |
-| `VPS_SSH_KEY`     | secret   | environnement `production` | Clé **privée** de déploiement (fichier entier, lignes BEGIN/END incluses) |
-| `VPS_KNOWN_HOSTS` | secret   | environnement `production` | Clé d'hôte du VPS (sortie de `ssh-keyscan`)                               |
-| `VPS_HOST`        | secret   | environnement `production` | IP ou nom DNS du VPS                                                      |
-| `VPS_USER`        | secret   | environnement `production` | `deploy`                                                                  |
-| `VPS_PORT`        | secret   | environnement `production` | Optionnel, port SSH si différent de 22                                    |
-| `EXPO_TOKEN`      | secret   | dépôt (Secrets > Actions)  | Jeton d'accès Expo                                                        |
-| `PROD_URL`        | variable | environnement `production` | URL publique, sans `/` final : `https://moni.mmi24c04.mmi-troyes.fr`      |
+| Nom               | Type     | Où                        | Valeur                                                                    |
+| ----------------- | -------- | ------------------------- | ------------------------------------------------------------------------- |
+| `VPS_SSH_KEY`     | secret   | environnement `Deploy`    | Clé **privée** de déploiement (fichier entier, lignes BEGIN/END incluses) |
+| `VPS_KNOWN_HOSTS` | secret   | environnement `Deploy`    | Clé d'hôte du VPS (sortie de `ssh-keyscan`)                               |
+| `VPS_HOST`        | secret   | environnement `Deploy`    | IP ou nom DNS du VPS                                                      |
+| `VPS_USER`        | secret   | environnement `Deploy`    | `deploy`                                                                  |
+| `VPS_PORT`        | secret   | environnement `Deploy`    | Optionnel, port SSH si différent de 22                                    |
+| `EXPO_TOKEN`      | secret   | dépôt (Secrets > Actions) | Jeton d'accès Expo                                                        |
+| `PROD_URL`        | variable | environnement `Deploy`    | URL publique, sans `/` final : `https://moni.mmi24c04.mmi-troyes.fr`      |
 
 Générer les valeurs (sur ton poste) :
 
@@ -92,12 +92,12 @@ projet appartient à une organisation).
 Avec la CLI GitHub (`gh`), si tu préfères :
 
 ```bash
-gh secret set VPS_SSH_KEY --env production < ~/.ssh/moni_deploy
-gh secret set VPS_KNOWN_HOSTS --env production --body "$(ssh-keyscan -t ed25519 <host>)"
-gh secret set VPS_HOST --env production --body "<host>"
-gh secret set VPS_USER --env production --body "deploy"
+gh secret set VPS_SSH_KEY --env Deploy < ~/.ssh/moni_deploy
+gh secret set VPS_KNOWN_HOSTS --env Deploy --body "$(ssh-keyscan -t ed25519 <host>)"
+gh secret set VPS_HOST --env Deploy --body "<host>"
+gh secret set VPS_USER --env Deploy --body "deploy"
 gh secret set EXPO_TOKEN
-gh variable set PROD_URL --env production --body "https://moni.mmi24c04.mmi-troyes.fr"
+gh variable set PROD_URL --env Deploy --body "https://moni.mmi24c04.mmi-troyes.fr"
 ```
 
 Après le premier déploiement réussi, supprime `~/.ssh/moni_deploy` de ton poste si tu n'en as plus
