@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
-      name: production
+      name: Deploy
       url: ${{ vars.PROD_URL }}
     env:
       PROD_URL: ${{ vars.PROD_URL }}
@@ -40,11 +40,11 @@ jobs:
             exit 1
           fi
           if [ -z "$PROD_URL" ]; then
-            echo "::error::Variable PROD_URL is not set on the 'production' environment"
+            echo "::error::Variable PROD_URL is not set on the 'Deploy' environment"
             exit 1
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: ./.github/actions/setup-ssh
         with:
