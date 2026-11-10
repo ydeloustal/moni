@@ -35,7 +35,7 @@ runs:
       run: |
         for name in PRIVATE_KEY KNOWN_HOSTS VPS_HOST VPS_USER; do
           if [ -z "${!name}" ]; then
-            echo "::error::Missing SSH setting $name: check the secrets of the 'production' environment"
+            echo "::error::Missing SSH setting $name: check the secrets of the 'Deploy' environment"
             exit 1
           fi
         done
