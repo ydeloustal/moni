@@ -133,6 +133,16 @@ export function SettingsScreen() {
             <ListRow title="Catégories" onPress={() => router.push('/categories')} />
             <Divider />
             <ListRow title="Abonnements" onPress={() => router.push('/subscriptions')} />
+            {__DEV__ ? (
+              <>
+                <Divider />
+                <ListRow
+                  title="Labo OCR (dev)"
+                  subtitle="Phase 0 : test de la lecture de tickets"
+                  onPress={() => router.push('/ocr-lab')}
+                />
+              </>
+            ) : null}
           </Card>
           <Card title="Informations">
             <ListRow

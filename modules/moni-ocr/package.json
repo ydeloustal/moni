@@ -1,0 +1,10 @@
+{
+  "name": "moni-ocr",
+  "version": "0.1.0",
+  "description": "On-device text recognition for Moni (ML Kit bundled on Android, Vision on iOS). No network.",
+  "main": "index.ts",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "Moni",
+  "homepage": "https://moni.local",
+  "private": true
+}
