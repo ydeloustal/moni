@@ -36,6 +36,7 @@ const PAGES: Record<string, string> = {
   rates: 'Taux des livrets',
   privacy: 'Confidentialité',
   legal: 'Mentions légales et conditions',
+  'ocr-lab': 'Labo OCR',
 };
 
 function AppShell() {

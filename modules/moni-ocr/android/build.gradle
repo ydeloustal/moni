@@ -1,0 +1,21 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.moniocr'
+version = '0.1.0'
+
+android {
+  namespace "expo.modules.moniocr"
+  defaultConfig {
+    versionCode 1
+    versionName "0.1.0"
+  }
+}
+
+dependencies {
+  // BUNDLED variant: the Latin model ships inside the APK (no download, works without INTERNET).
+  // Never switch to com.google.android.gms:play-services-mlkit-text-recognition (downloads the model).
+  implementation "com.google.mlkit:text-recognition:16.0.1"
+}

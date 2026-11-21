@@ -49,3 +49,7 @@ coverage/
 
 # typescript
 *.tsbuildinfo
+
+# Native build outputs of local Expo modules
+/modules/*/android/build/
+/modules/*/android/.cxx/
